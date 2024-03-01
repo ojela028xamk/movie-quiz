@@ -1,8 +1,8 @@
-import './App.css';
+import css from './App.module.scss'
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
+    <div className={css.App}>
       <h2>Movie Quiz</h2>
     </div>
   );
