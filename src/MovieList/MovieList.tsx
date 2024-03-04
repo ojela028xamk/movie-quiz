@@ -11,7 +11,11 @@ const testMovies = [
   'Jumanji',
 ]
 
-const MovieList = (): JSX.Element => {
+type MovieListProps = {
+  handleSiteView: (showList: boolean, showQuiz: boolean) => void
+}
+
+const MovieList = ({ handleSiteView }: MovieListProps): JSX.Element => {
   const [movieName, setMovieName] = useState<string>('')
 
   return (
@@ -32,6 +36,7 @@ const MovieList = (): JSX.Element => {
             key={index}
             className={css.movie_grid_card}
             style={{ width: '18rem' }}
+            onClick={() => handleSiteView(false, true)}
           >
             <Card.Img
               variant='top'
