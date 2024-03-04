@@ -1,5 +1,6 @@
-import { Card, Form, InputGroup } from 'react-bootstrap'
+import { Button, Card, Form, InputGroup } from 'react-bootstrap'
 import { useState } from 'react'
+import { getSearchedMovies } from '../Services/movieDatabaseService'
 import css from './MovieList.module.scss'
 
 const testMovies = [
@@ -18,6 +19,12 @@ type MovieListProps = {
 const MovieList = ({ handleSiteView }: MovieListProps): JSX.Element => {
   const [movieName, setMovieName] = useState<string>('')
 
+  const handleSearchMovies = (): void => {
+    getSearchedMovies(movieName)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err))
+  }
+
   return (
     <div className={css.movie_list}>
       <InputGroup className='mb-3'>
@@ -29,6 +36,9 @@ const MovieList = ({ handleSiteView }: MovieListProps): JSX.Element => {
           value={movieName}
           onChange={(event) => setMovieName(event.currentTarget.value)}
         />
+        <Button variant='dark' onClick={handleSearchMovies}>
+          Search
+        </Button>
       </InputGroup>
       <div className={css.movie_grid}>
         {testMovies.map((movie, index) => (
