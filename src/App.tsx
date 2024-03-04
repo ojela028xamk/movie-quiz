@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import css from './App.module.scss'
 import Header from './Header/Header'
 import MovieList from './MovieList/MovieList'
 import MovieQuiz from './MovieQuiz/MovieQuiz'
+import css from './App.module.scss'
 
 const App = (): JSX.Element => {
   const [showMovieList, setShowMovieList] = useState<boolean>(true)
