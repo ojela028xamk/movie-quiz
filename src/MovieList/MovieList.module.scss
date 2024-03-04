@@ -1,0 +1,19 @@
+.movie_list {
+  height: 600px;
+  border: 2px solid white;
+  margin: 1em;
+  padding: 1em;
+
+  .movie_grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+    gap: 1em;
+
+    .movie_grid_card:hover {
+      cursor: pointer;
+      background-color: black;
+      color: white;
+    }
+  }
+}
