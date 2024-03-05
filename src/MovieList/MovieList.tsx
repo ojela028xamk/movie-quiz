@@ -1,16 +1,9 @@
 import { Button, Card, Form, InputGroup } from 'react-bootstrap'
 import { useState } from 'react'
-import {
-  MovieSearchResponse,
-  getSearchedMovies,
-} from '../Services/movieDatabaseService'
-import css from './MovieList.module.scss'
+import { getSearchedMovies } from '../Services/movieDatabaseService'
 import { useKeyPressEvent } from 'react-use'
-
-type CurrentMovieList = {
-  title: string
-  image: string
-}
+import { CurrentMovieList, MovieSearchResponse } from '../globalTypes'
+import css from './MovieList.module.scss'
 
 type MovieListProps = {
   handleSiteView: (showList: boolean, showQuiz: boolean) => void
