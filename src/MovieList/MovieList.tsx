@@ -5,6 +5,7 @@ import {
   getSearchedMovies,
 } from '../Services/movieDatabaseService'
 import css from './MovieList.module.scss'
+import { useKeyPressEvent } from 'react-use'
 
 type CurrentMovieList = {
   title: string
@@ -40,6 +41,8 @@ const MovieList = ({ handleSiteView }: MovieListProps): JSX.Element => {
       })
       .catch((err) => console.log(err))
   }
+
+  useKeyPressEvent('Enter', handleSearchMovies)
 
   return (
     <div className={css.movie_list}>
