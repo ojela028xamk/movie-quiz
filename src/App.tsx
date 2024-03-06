@@ -7,6 +7,7 @@ import css from './App.module.scss'
 const App = (): JSX.Element => {
   const [showMovieList, setShowMovieList] = useState<boolean>(true)
   const [showMovieQuiz, setShowMovieQuiz] = useState<boolean>(false)
+  const [selectedMovie, setSelectedMovie] = useState<string>('')
 
   const handleSiteView = (showList: boolean, showQuiz: boolean): void => {
     setShowMovieList(showList)
@@ -16,8 +17,18 @@ const App = (): JSX.Element => {
   return (
     <div className={css.App}>
       <Header />
-      {showMovieList && <MovieList handleSiteView={handleSiteView} />}
-      {showMovieQuiz && <MovieQuiz handleSiteView={handleSiteView} />}
+      {showMovieList && (
+        <MovieList
+          handleSiteView={handleSiteView}
+          setSelectedMovie={setSelectedMovie}
+        />
+      )}
+      {showMovieQuiz && (
+        <MovieQuiz
+          handleSiteView={handleSiteView}
+          selectedMovie={selectedMovie}
+        />
+      )}
     </div>
   )
 }

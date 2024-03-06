@@ -7,9 +7,13 @@ import css from './MovieList.module.scss'
 
 type MovieListProps = {
   handleSiteView: (showList: boolean, showQuiz: boolean) => void
+  setSelectedMovie: React.Dispatch<React.SetStateAction<string>>
 }
 
-const MovieList = ({ handleSiteView }: MovieListProps): JSX.Element => {
+const MovieList = ({
+  handleSiteView,
+  setSelectedMovie,
+}: MovieListProps): JSX.Element => {
   const [movieName, setMovieName] = useState<string>('')
   const [currentMovieList, setCurrentMovieList] = useState<CurrentMovieList[]>(
     [],
@@ -33,6 +37,11 @@ const MovieList = ({ handleSiteView }: MovieListProps): JSX.Element => {
         }
       })
       .catch((err) => console.log(err))
+  }
+
+  const handleSelectMovie = (movie: string): void => {
+    setSelectedMovie(movie)
+    handleSiteView(false, true)
   }
 
   useKeyPressEvent('Enter', handleSearchMovies)
@@ -60,7 +69,7 @@ const MovieList = ({ handleSiteView }: MovieListProps): JSX.Element => {
               key={index}
               className={css.movie_grid_card}
               style={{ width: '18rem' }}
-              onClick={() => handleSiteView(false, true)}
+              onClick={() => handleSelectMovie(movie.title)}
             >
               <Card.Img
                 variant='top'
