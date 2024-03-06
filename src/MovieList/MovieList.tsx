@@ -14,7 +14,7 @@ const MovieList = ({
   handleSiteView,
   setSelectedMovie,
 }: MovieListProps): JSX.Element => {
-  const [movieName, setMovieName] = useState<string>('')
+  const [movieName, setMovieName] = useState<string>('Kill Bill')
   const [currentMovieList, setCurrentMovieList] = useState<CurrentMovieList[]>(
     [],
   )
