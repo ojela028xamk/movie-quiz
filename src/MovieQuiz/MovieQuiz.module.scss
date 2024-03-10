@@ -8,21 +8,23 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       padding: 1em;
+      gap: 1em;
 
-      .question_input {
+      .question_item {
+        padding: 1em;
         border: 2px solid white;
         border-radius: 1em;
-        padding: 1em;
+      }
 
-        input {
-          margin: 0;
-          padding: 0;
-        }
+      .active {
+        background-color: white;
+        color: black;
+      }
 
-        label {
-          margin: 0;
-          padding: 0;
-        }
+      .question_item:hover {
+        cursor: pointer;
+        background-color: white;
+        color: black;
       }
     }
   }

@@ -114,7 +114,6 @@ const MovieQuiz = ({
   const [currentQuestion, setCurrentQuestion] = useState<TestQuestion>(
     testQuestions[0],
   )
-  const [currentAnswer, setCurrentAnswer] = useState<string>('')
   const [selectedAnswers, setSelectedAnswers] = useState<string[]>([
     '',
     '',
@@ -127,6 +126,7 @@ const MovieQuiz = ({
     '',
     '',
   ])
+  const [currentAnswer, setCurrentAnswer] = useState<string>('')
 
   const handleSelectQuestion = (pageNumber: number): void => {
     setCurrentQuestion(testQuestions[pageNumber])
@@ -135,8 +135,11 @@ const MovieQuiz = ({
   }
 
   const handleSelectAnswer = (answerId: string): void => {
+    if (answerId === currentAnswer) return
+
     const newAnswers = [...selectedAnswers]
     newAnswers[currentPaginationNumber] = answerId
+    setCurrentAnswer(answerId)
     setSelectedAnswers(newAnswers)
   }
 
@@ -150,15 +153,17 @@ const MovieQuiz = ({
         <h3>{currentQuestion.question}</h3>
         <div className={css.questions_grid}>
           {currentQuestion.answers.map((answer) => (
-            <Form.Check
+            <div
               key={answer.answer_id}
-              className={css.question_input}
-              label={answer.answer}
-              name={currentQuestion.question}
-              type='radio'
+              className={
+                currentAnswer === answer.answer_id
+                  ? `${css.question_item} ${css.active}`
+                  : css.question_item
+              }
               onClick={() => handleSelectAnswer(answer.answer_id)}
-              defaultChecked={currentAnswer === answer.answer_id}
-            />
+            >
+              {answer.answer}
+            </div>
           ))}
         </div>
       </div>
