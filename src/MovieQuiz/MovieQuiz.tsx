@@ -1,7 +1,7 @@
 import { Button, Pagination } from 'react-bootstrap'
 import { useState } from 'react'
-import css from './MovieQuiz.module.scss'
 import { TestQuestion, testQuestions } from './testQuestion'
+import css from './MovieQuiz.module.scss'
 
 type MovieQuizProps = {
   handleSiteView: (showList: boolean, showQuiz: boolean) => void
@@ -12,8 +12,7 @@ const MovieQuiz = ({
   handleSiteView,
   selectedMovie,
 }: MovieQuizProps): JSX.Element => {
-  const [currentPaginationNumber, setCurrentPaginationNumber] =
-    useState<number>(0)
+  const [currentPage, setCurrentPage] = useState<number>(0)
   const [currentQuestion, setCurrentQuestion] = useState<TestQuestion>(
     testQuestions[0],
   )
@@ -32,9 +31,9 @@ const MovieQuiz = ({
   const [currentAnswer, setCurrentAnswer] = useState<string>('')
 
   const handleSelectQuestion = (pageNumber: number): void => {
-    if (pageNumber === currentPaginationNumber) return
+    if (pageNumber === currentPage) return
     setCurrentQuestion(testQuestions[pageNumber])
-    setCurrentPaginationNumber(pageNumber)
+    setCurrentPage(pageNumber)
     setCurrentAnswer(selectedAnswers[pageNumber])
   }
 
@@ -42,7 +41,7 @@ const MovieQuiz = ({
     if (answerId === currentAnswer) return
 
     const newAnswers = [...selectedAnswers]
-    newAnswers[currentPaginationNumber] = answerId
+    newAnswers[currentPage] = answerId
     setCurrentAnswer(answerId)
     setSelectedAnswers(newAnswers)
   }
@@ -72,12 +71,11 @@ const MovieQuiz = ({
         </div>
       </div>
       <Pagination size='lg' className={css.pagination}>
-        {' '}
         {testQuestions.map((question, index) => {
           return (
             <Pagination.Item
               key={question.question_id}
-              active={index === currentPaginationNumber}
+              active={index === currentPage}
               onClick={() => handleSelectQuestion(index)}
             >
               {index + 1}
