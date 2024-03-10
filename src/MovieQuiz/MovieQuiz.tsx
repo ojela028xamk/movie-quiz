@@ -1,109 +1,12 @@
-import { Button, Form, Pagination } from 'react-bootstrap'
-import { nanoid } from 'nanoid'
+import { Button, Pagination } from 'react-bootstrap'
 import { useState } from 'react'
 import css from './MovieQuiz.module.scss'
+import { TestQuestion, testQuestions } from './testQuestion'
 
 type MovieQuizProps = {
   handleSiteView: (showList: boolean, showQuiz: boolean) => void
   selectedMovie: string
 }
-
-type TestQuestion = {
-  question_id: string
-  question: string
-  pagination_number: number
-  answers: TestAnswer[]
-}
-
-type TestAnswer = {
-  answer_id: string
-  answer: string
-  isCorrect: boolean
-}
-
-const testQuestions: TestQuestion[] = [
-  {
-    question_id: nanoid(),
-    question: 'Question 1',
-    pagination_number: 1,
-    answers: [
-      {
-        answer_id: nanoid(),
-        answer: 'Answer 1',
-        isCorrect: false,
-      },
-      {
-        answer_id: nanoid(),
-        answer: 'Answer 2',
-        isCorrect: false,
-      },
-      {
-        answer_id: nanoid(),
-        answer: 'Answer 3',
-        isCorrect: false,
-      },
-      {
-        answer_id: nanoid(),
-        answer: 'Answer 4',
-        isCorrect: true,
-      },
-    ],
-  },
-  {
-    question_id: nanoid(),
-    question: 'Question 2',
-    pagination_number: 2,
-    answers: [
-      {
-        answer_id: nanoid(),
-        answer: 'Answer 1',
-        isCorrect: false,
-      },
-      {
-        answer_id: nanoid(),
-        answer: 'Answer 2',
-        isCorrect: false,
-      },
-      {
-        answer_id: nanoid(),
-        answer: 'Answer 3',
-        isCorrect: false,
-      },
-      {
-        answer_id: nanoid(),
-        answer: 'Answer 4',
-        isCorrect: true,
-      },
-    ],
-  },
-  {
-    question_id: nanoid(),
-    question: 'Question 3',
-    pagination_number: 3,
-    answers: [
-      {
-        answer_id: nanoid(),
-        answer: 'Answer 1',
-        isCorrect: false,
-      },
-      {
-        answer_id: nanoid(),
-        answer: 'Answer 2',
-        isCorrect: false,
-      },
-      {
-        answer_id: nanoid(),
-        answer: 'Answer 3',
-        isCorrect: false,
-      },
-      {
-        answer_id: nanoid(),
-        answer: 'Answer 4',
-        isCorrect: true,
-      },
-    ],
-  },
-]
 
 const MovieQuiz = ({
   handleSiteView,
@@ -129,6 +32,7 @@ const MovieQuiz = ({
   const [currentAnswer, setCurrentAnswer] = useState<string>('')
 
   const handleSelectQuestion = (pageNumber: number): void => {
+    if (pageNumber === currentPaginationNumber) return
     setCurrentQuestion(testQuestions[pageNumber])
     setCurrentPaginationNumber(pageNumber)
     setCurrentAnswer(selectedAnswers[pageNumber])
@@ -176,7 +80,7 @@ const MovieQuiz = ({
               active={index === currentPaginationNumber}
               onClick={() => handleSelectQuestion(index)}
             >
-              {question.pagination_number}
+              {index + 1}
             </Pagination.Item>
           )
         })}
