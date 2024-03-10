@@ -2,4 +2,33 @@
   border: 2px solid white;
   margin: 1em;
   padding: 1em;
+
+  .movie_quiz_questions {
+    .questions_grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding: 1em;
+
+      .question_input {
+        border: 2px solid white;
+        border-radius: 1em;
+        padding: 1em;
+
+        input {
+          margin: 0;
+          padding: 0;
+        }
+
+        label {
+          margin: 0;
+          padding: 0;
+        }
+      }
+    }
+  }
+
+  .pagination {
+    margin: 1em;
+    justify-content: center;
+  }
 }

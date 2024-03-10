@@ -1,7 +1,7 @@
 import { Button, Form, Pagination } from 'react-bootstrap'
-import css from './MovieQuiz.module.scss'
 import { nanoid } from 'nanoid'
 import { useState } from 'react'
+import css from './MovieQuiz.module.scss'
 
 type MovieQuizProps = {
   handleSiteView: (showList: boolean, showQuiz: boolean) => void
@@ -110,20 +110,34 @@ const MovieQuiz = ({
   selectedMovie,
 }: MovieQuizProps): JSX.Element => {
   const [currentPaginationNumber, setCurrentPaginationNumber] =
-    useState<number>(1)
+    useState<number>(0)
   const [currentQuestion, setCurrentQuestion] = useState<TestQuestion>(
     testQuestions[0],
   )
+  const [currentAnswer, setCurrentAnswer] = useState<string>('')
+  const [selectedAnswers, setSelectedAnswers] = useState<string[]>([
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+  ])
 
   const handleSelectQuestion = (pageNumber: number): void => {
-    const newCurrentQuestion = testQuestions.find(
-      (question) => pageNumber === question.pagination_number,
-    )
+    setCurrentQuestion(testQuestions[pageNumber])
+    setCurrentPaginationNumber(pageNumber)
+    setCurrentAnswer(selectedAnswers[pageNumber])
+  }
 
-    if (newCurrentQuestion) {
-      setCurrentQuestion(newCurrentQuestion)
-      setCurrentPaginationNumber(pageNumber)
-    }
+  const handleSelectAnswer = (answerId: string): void => {
+    const newAnswers = [...selectedAnswers]
+    newAnswers[currentPaginationNumber] = answerId
+    setSelectedAnswers(newAnswers)
   }
 
   return (
@@ -132,26 +146,30 @@ const MovieQuiz = ({
         <i className='bi bi-arrow-left'></i> Select another movie{' '}
       </Button>
       <h2>Movie: {selectedMovie}</h2>
-      <div className={css.movie_quiz_grid}>
+      <div className={css.movie_quiz_questions}>
         <h3>{currentQuestion.question}</h3>
-        {currentQuestion.answers.map((answer) => (
-          <Form.Check
-            key={answer.answer_id}
-            inline
-            label={answer.answer}
-            name={currentQuestion.question}
-            type='radio'
-          />
-        ))}
+        <div className={css.questions_grid}>
+          {currentQuestion.answers.map((answer) => (
+            <Form.Check
+              key={answer.answer_id}
+              className={css.question_input}
+              label={answer.answer}
+              name={currentQuestion.question}
+              type='radio'
+              onClick={() => handleSelectAnswer(answer.answer_id)}
+              defaultChecked={currentAnswer === answer.answer_id}
+            />
+          ))}
+        </div>
       </div>
-      <Pagination size='lg'>
+      <Pagination size='lg' className={css.pagination}>
         {' '}
-        {testQuestions.map((question) => {
+        {testQuestions.map((question, index) => {
           return (
             <Pagination.Item
               key={question.question_id}
-              active={question.pagination_number === currentPaginationNumber}
-              onClick={() => handleSelectQuestion(question.pagination_number)}
+              active={index === currentPaginationNumber}
+              onClick={() => handleSelectQuestion(index)}
             >
               {question.pagination_number}
             </Pagination.Item>
