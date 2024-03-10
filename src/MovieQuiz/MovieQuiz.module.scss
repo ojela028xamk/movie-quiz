@@ -2,4 +2,35 @@
   border: 2px solid white;
   margin: 1em;
   padding: 1em;
+
+  .movie_quiz_questions {
+    .questions_grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding: 1em;
+      gap: 1em;
+
+      .question_item {
+        padding: 1em;
+        border: 2px solid white;
+        border-radius: 1em;
+      }
+
+      .active {
+        background-color: white;
+        color: black;
+      }
+
+      .question_item:hover {
+        cursor: pointer;
+        background-color: white;
+        color: black;
+      }
+    }
+  }
+
+  .pagination {
+    margin: 1em;
+    justify-content: center;
+  }
 }
