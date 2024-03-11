@@ -33,4 +33,25 @@
     margin: 1em;
     justify-content: center;
   }
+
+  .movie_quiz_results {
+    margin: auto;
+    width: 600px;
+    span {
+      display: block;
+      margin: 0.5em;
+    }
+
+    .correct_selected {
+      color: green;
+    }
+
+    .correct {
+      color: greenyellow;
+    }
+
+    .wrong {
+      color: red;
+    }
+  }
 }

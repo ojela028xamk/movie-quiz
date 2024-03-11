@@ -1,8 +1,8 @@
 import { Button, Pagination } from 'react-bootstrap'
 import { useEffect, useState } from 'react'
 import { TestQuestion, testQuestions } from './testQuestion'
-import css from './MovieQuiz.module.scss'
 import MovieQuizResults from './MovieQuizResults'
+import css from './MovieQuiz.module.scss'
 
 type MovieQuizProps = {
   handleSiteView: (showList: boolean, showQuiz: boolean) => void
@@ -93,14 +93,14 @@ const MovieQuiz = ({
                 )
               })}
             </Pagination>
-            <Button disabled={isQuizDone} onClick={() => setShowResults(true)}>
+            <Button disabled={!isQuizDone} onClick={() => setShowResults(true)}>
               {isQuizDone
                 ? 'Show results'
                 : 'Answer all questions to see results'}
             </Button>
           </div>
         )}
-        {showResults && <MovieQuizResults />}
+        {showResults && <MovieQuizResults selectedAnswers={selectedAnswers} />}
       </div>
     </>
   )
