@@ -9,21 +9,18 @@ const MovieQuizResults = ({
   selectedAnswers,
 }: MovieQuizResultsProps): JSX.Element => {
   const isCorrectAnswer = (answer: TestAnswer, index: number): string => {
-    if (answer.answer_id === selectedAnswers[index] && answer.isCorrect) {
-      return css.correct_selected
-    } else if (
-      answer.answer_id !== selectedAnswers[index] &&
-      answer.isCorrect
-    ) {
-      return css.correct
-    } else if (
-      answer.answer_id === selectedAnswers[index] &&
-      !answer.isCorrect
-    ) {
-      return css.wrong
-    } else {
-      return css.null
-    }
+    const correctAnswerSelected =
+      answer.answer_id === selectedAnswers[index] && answer.isCorrect
+    const correctAnswer =
+      answer.answer_id !== selectedAnswers[index] && answer.isCorrect
+    const wrongAnswer =
+      answer.answer_id === selectedAnswers[index] && !answer.isCorrect
+
+    if (correctAnswerSelected) return css.correct_selected
+    if (correctAnswer) return css.correct
+    if (wrongAnswer) return css.wrong
+
+    return ''
   }
 
   return (
