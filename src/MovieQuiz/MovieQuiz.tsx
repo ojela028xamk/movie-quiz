@@ -100,7 +100,12 @@ const MovieQuiz = ({
             </Button>
           </div>
         )}
-        {showResults && <MovieQuizResults selectedAnswers={selectedAnswers} />}
+        {showResults && (
+          <MovieQuizResults
+            selectedAnswers={selectedAnswers}
+            handleSiteView={handleSiteView}
+          />
+        )}
       </div>
     </>
   )

@@ -2,13 +2,16 @@ import { useMount } from 'react-use'
 import css from './MovieQuiz.module.scss'
 import { TestAnswer, testQuestions } from './testQuestion'
 import { useState } from 'react'
+import { Button } from 'react-bootstrap'
 
 type MovieQuizResultsProps = {
   selectedAnswers: string[]
+  handleSiteView: (showList: boolean, showQuiz: boolean) => void
 }
 
 const MovieQuizResults = ({
   selectedAnswers,
+  handleSiteView,
 }: MovieQuizResultsProps): JSX.Element => {
   const [correctAnswersCount, setCorrectAnswersCount] = useState<number>(0)
 
@@ -42,6 +45,9 @@ const MovieQuizResults = ({
     <div className={css.movie_quiz_results}>
       <h2>Final Results</h2>
       <h4>You got {correctAnswersCount} / 10 questions correct!</h4>
+      <Button onClick={() => handleSiteView(true, false)}>
+        <i className='bi bi-arrow-left'></i> Select another movie{' '}
+      </Button>
       {testQuestions.map((question, questionIndex) => {
         return (
           <div key={question.question_id}>
