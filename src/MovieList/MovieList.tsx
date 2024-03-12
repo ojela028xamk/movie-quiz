@@ -4,6 +4,7 @@ import { getSearchedMovies } from '../Services/movieDatabaseService'
 import { useKeyPressEvent } from 'react-use'
 import { CurrentMovieList, MovieSearchResponse } from '../globalTypes'
 import css from './MovieList.module.scss'
+import { createNewQuiz } from '../Services/questionService'
 
 type MovieListProps = {
   handleSiteView: (showList: boolean, showQuiz: boolean) => void
@@ -31,7 +32,11 @@ const MovieList = ({
           searchedMovies.results.length
         ) {
           searchedMovies.results.map((movie) =>
-            newMovieList.push({ title: movie.title, image: movie.poster_path }),
+            newMovieList.push({
+              title: movie.title,
+              image: movie.poster_path,
+              data: movie,
+            }),
           )
           setCurrentMovieList(newMovieList)
         }
@@ -39,8 +44,9 @@ const MovieList = ({
       .catch((err) => console.log(err))
   }
 
-  const handleSelectMovie = (movie: string): void => {
-    setSelectedMovie(movie)
+  const handleSelectMovie = (movie: CurrentMovieList): void => {
+    createNewQuiz(movie.data)
+    setSelectedMovie(movie.title)
     handleSiteView(false, true)
   }
 
@@ -69,7 +75,7 @@ const MovieList = ({
               key={index}
               className={css.movie_grid_card}
               style={{ width: '18rem' }}
-              onClick={() => handleSelectMovie(movie.title)}
+              onClick={() => handleSelectMovie(movie)}
             >
               <Card.Img
                 variant='top'

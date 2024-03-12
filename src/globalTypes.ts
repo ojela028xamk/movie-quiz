@@ -25,4 +25,17 @@ export type MovieResult = {
 export type CurrentMovieList = {
   title: string
   image: string
+  data: MovieResult
+}
+
+export type QuizQuestion = {
+  question_id: string
+  question: string
+  answers: QuizAnswer[]
+}
+
+export type QuizAnswer = {
+  answer_id: string
+  answer: string | number
+  isCorrect: boolean
 }
