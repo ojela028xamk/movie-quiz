@@ -82,12 +82,12 @@ export const testQuestions: TestQuestion[] = [
       {
         answer_id: nanoid(),
         answer: 'Answer 3',
-        isCorrect: false,
+        isCorrect: true,
       },
       {
         answer_id: nanoid(),
         answer: 'Answer 4',
-        isCorrect: true,
+        isCorrect: false,
       },
     ],
   },
@@ -98,7 +98,7 @@ export const testQuestions: TestQuestion[] = [
       {
         answer_id: nanoid(),
         answer: 'Answer 1',
-        isCorrect: false,
+        isCorrect: true,
       },
       {
         answer_id: nanoid(),
@@ -113,7 +113,7 @@ export const testQuestions: TestQuestion[] = [
       {
         answer_id: nanoid(),
         answer: 'Answer 4',
-        isCorrect: true,
+        isCorrect: false,
       },
     ],
   },
@@ -160,12 +160,12 @@ export const testQuestions: TestQuestion[] = [
       {
         answer_id: nanoid(),
         answer: 'Answer 3',
-        isCorrect: false,
+        isCorrect: true,
       },
       {
         answer_id: nanoid(),
         answer: 'Answer 4',
-        isCorrect: true,
+        isCorrect: false,
       },
     ],
   },
@@ -181,7 +181,7 @@ export const testQuestions: TestQuestion[] = [
       {
         answer_id: nanoid(),
         answer: 'Answer 2',
-        isCorrect: false,
+        isCorrect: true,
       },
       {
         answer_id: nanoid(),
@@ -191,7 +191,7 @@ export const testQuestions: TestQuestion[] = [
       {
         answer_id: nanoid(),
         answer: 'Answer 4',
-        isCorrect: true,
+        isCorrect: false,
       },
     ],
   },
@@ -202,7 +202,7 @@ export const testQuestions: TestQuestion[] = [
       {
         answer_id: nanoid(),
         answer: 'Answer 1',
-        isCorrect: false,
+        isCorrect: true,
       },
       {
         answer_id: nanoid(),
@@ -217,7 +217,7 @@ export const testQuestions: TestQuestion[] = [
       {
         answer_id: nanoid(),
         answer: 'Answer 4',
-        isCorrect: true,
+        isCorrect: false,
       },
     ],
   },
@@ -233,7 +233,7 @@ export const testQuestions: TestQuestion[] = [
       {
         answer_id: nanoid(),
         answer: 'Answer 2',
-        isCorrect: false,
+        isCorrect: true,
       },
       {
         answer_id: nanoid(),
@@ -243,7 +243,7 @@ export const testQuestions: TestQuestion[] = [
       {
         answer_id: nanoid(),
         answer: 'Answer 4',
-        isCorrect: true,
+        isCorrect: false,
       },
     ],
   },
@@ -254,7 +254,7 @@ export const testQuestions: TestQuestion[] = [
       {
         answer_id: nanoid(),
         answer: 'Answer 1',
-        isCorrect: false,
+        isCorrect: true,
       },
       {
         answer_id: nanoid(),
@@ -269,7 +269,7 @@ export const testQuestions: TestQuestion[] = [
       {
         answer_id: nanoid(),
         answer: 'Answer 4',
-        isCorrect: true,
+        isCorrect: false,
       },
     ],
   },
