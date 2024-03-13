@@ -1,5 +1,6 @@
 import { nanoid } from 'nanoid'
 import { MovieResult, QuizQuestion } from '../globalTypes'
+import { getMovieCredits } from './movieDatabaseService'
 
 const askReleaseYear = (date: string): QuizQuestion => {
   const correctDate = Number(date.substring(0, 4))
@@ -33,8 +34,31 @@ const askReleaseYear = (date: string): QuizQuestion => {
   return newQuestion
 }
 
+const askDirector = (movieId: number): QuizQuestion => {
+  getMovieCredits(String(movieId))
+    .then((res) => {
+      console.log(res)
+    })
+    .catch((err) => console.log(err))
+
+  const newQuestion: QuizQuestion = {
+    question_id: nanoid(),
+    question: 'Who is the director of this movie?',
+    answers: [
+      {
+        answer_id: nanoid(),
+        answer: 'Quentin Tarantino',
+        isCorrect: true,
+      },
+    ],
+  }
+
+  return newQuestion
+}
+
 const createNewQuiz = (data: MovieResult): void => {
-  console.log(askReleaseYear(data.release_date))
+  const q1 = askReleaseYear(data.release_date)
+  const q2 = askDirector(data.id)
 }
 
 export { createNewQuiz }
