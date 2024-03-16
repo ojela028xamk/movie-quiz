@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid'
-import { MovieResult, QuizQuestion } from '../globalTypes'
+import { MovieCreditsResult, MovieResult, QuizQuestion } from '../globalTypes'
 import { getMovieCredits } from './movieDatabaseService'
 
 const askReleaseYear = (date: string): QuizQuestion => {
@@ -35,23 +35,47 @@ const askReleaseYear = (date: string): QuizQuestion => {
 }
 
 const askDirector = (movieId: number): QuizQuestion => {
-  getMovieCredits(String(movieId))
-    .then((res) => {
-      console.log(res)
-    })
-    .catch((err) => console.log(err))
-
   const newQuestion: QuizQuestion = {
     question_id: nanoid(),
     question: 'Who is the director of this movie?',
-    answers: [
-      {
-        answer_id: nanoid(),
-        answer: 'Quentin Tarantino',
-        isCorrect: true,
-      },
-    ],
+    answers: [],
   }
+
+  getMovieCredits(String(movieId))
+    .then((res) => {
+      const response = res as MovieCreditsResult
+      const director = response.crew.find(
+        (member) => member.department === 'Directing',
+      )
+
+      if (director) {
+        newQuestion.answers.push({
+          answer_id: nanoid(),
+          answer: director.name,
+          isCorrect: true,
+        })
+      }
+
+      for (let index = 0; index < response.crew.length; index++) {
+        const answerAlreadyExists = newQuestion.answers.findIndex(
+          (answer) => answer.answer === response.crew[index].name,
+        )
+
+        if (
+          response.crew[index].department !== 'Directing' &&
+          answerAlreadyExists < 0
+        ) {
+          newQuestion.answers.push({
+            answer_id: nanoid(),
+            answer: response.crew[index].name,
+            isCorrect: false,
+          })
+        }
+
+        if (newQuestion.answers.length === 4) break
+      }
+    })
+    .catch((err) => console.log(err))
 
   return newQuestion
 }
