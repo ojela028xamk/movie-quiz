@@ -37,7 +37,7 @@ const askReleaseYear = (date: string): QuizQuestion => {
 const askDirector = (movieId: number): QuizQuestion => {
   const newQuestion: QuizQuestion = {
     question_id: nanoid(),
-    question: 'Who is the director of this movie?',
+    question: 'Which one of them is part of the directing crew?',
     answers: [],
   }
 
@@ -83,6 +83,8 @@ const askDirector = (movieId: number): QuizQuestion => {
 const createNewQuiz = (data: MovieResult): void => {
   const q1 = askReleaseYear(data.release_date)
   const q2 = askDirector(data.id)
+  console.log(q1)
+  console.log(q2)
 }
 
 export { createNewQuiz }
