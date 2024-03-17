@@ -3,15 +3,16 @@ import { useEffect, useState } from 'react'
 import { TestQuestion, testQuestions } from './testQuestion'
 import MovieQuizResults from './MovieQuizResults'
 import css from './MovieQuiz.module.scss'
+import { MovieResult } from '../globalTypes'
 
 type MovieQuizProps = {
   handleSiteView: (showList: boolean, showQuiz: boolean) => void
-  selectedMovie: string
+  movieTitle: string
 }
 
 const MovieQuiz = ({
   handleSiteView,
-  selectedMovie,
+  movieTitle,
 }: MovieQuizProps): JSX.Element => {
   const [currentPage, setCurrentPage] = useState<number>(0)
   const [currentQuestion, setCurrentQuestion] = useState<TestQuestion>(
@@ -63,7 +64,7 @@ const MovieQuiz = ({
             <Button onClick={() => handleSiteView(true, false)}>
               <i className='bi bi-arrow-left'></i> Select another movie{' '}
             </Button>
-            <h2>Movie: {selectedMovie}</h2>
+            <h2>Movie: {movieTitle}</h2>
             <h3>{currentQuestion.question}</h3>
             <div className={css.questions_grid}>
               {currentQuestion.answers.map((answer) => (
