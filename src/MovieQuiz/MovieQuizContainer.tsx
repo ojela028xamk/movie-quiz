@@ -1,3 +1,4 @@
+import { createNewQuiz } from '../Services/questionService'
 import { MovieResult } from '../globalTypes'
 import MovieQuiz from './MovieQuiz'
 
@@ -9,11 +10,18 @@ type MovieQuizContainerProps = {
 const MovieQuizContainer = ({
   handleSiteView,
   selectedMovie,
-}: MovieQuizContainerProps): JSX.Element => {
-  const movieTitle =
-    selectedMovie && selectedMovie.title ? selectedMovie.title : ''
+}: MovieQuizContainerProps): JSX.Element | null => {
+  if (!selectedMovie) return <h3>No data found...</h3>
 
-  return <MovieQuiz handleSiteView={handleSiteView} movieTitle={movieTitle} />
+  const quizQuestions = createNewQuiz(selectedMovie)
+
+  return (
+    <MovieQuiz
+      handleSiteView={handleSiteView}
+      movieTitle={selectedMovie.title}
+      quizQuestions={quizQuestions}
+    />
+  )
 }
 
 export default MovieQuizContainer

@@ -80,11 +80,10 @@ const askDirector = (movieId: number): QuizQuestion => {
   return newQuestion
 }
 
-const createNewQuiz = (data: MovieResult): void => {
+const createNewQuiz = (data: MovieResult): QuizQuestion[] => {
   const q1 = askReleaseYear(data.release_date)
   const q2 = askDirector(data.id)
-  console.log(q1)
-  console.log(q2)
+  return [q1, q2]
 }
 
 export { createNewQuiz }
