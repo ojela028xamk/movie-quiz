@@ -1,34 +1,28 @@
 import { Button, Pagination } from 'react-bootstrap'
 import { useEffect, useState } from 'react'
-import { TestQuestion, testQuestions } from './testQuestion'
 import MovieQuizResults from './MovieQuizResults'
 import css from './MovieQuiz.module.scss'
+import { QuizQuestion } from '../globalTypes'
 
 type MovieQuizProps = {
   handleSiteView: (showList: boolean, showQuiz: boolean) => void
-  selectedMovie: string
+  movieTitle: string
+  quizQuestions: QuizQuestion[]
 }
 
 const MovieQuiz = ({
   handleSiteView,
-  selectedMovie,
+  movieTitle,
+  quizQuestions,
 }: MovieQuizProps): JSX.Element => {
+  const initSelectedAnswers = quizQuestions.map(() => '')
+  const firstQuestion = quizQuestions[0]
+
   const [currentPage, setCurrentPage] = useState<number>(0)
-  const [currentQuestion, setCurrentQuestion] = useState<TestQuestion>(
-    testQuestions[0],
-  )
-  const [selectedAnswers, setSelectedAnswers] = useState<string[]>([
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-  ])
+  const [selectedAnswers, setSelectedAnswers] =
+    useState<string[]>(initSelectedAnswers)
+  const [currentQuestion, setCurrentQuestion] =
+    useState<QuizQuestion>(firstQuestion)
   const [currentAnswer, setCurrentAnswer] = useState<string>('')
   const [isQuizDone, setIsQuizDone] = useState<boolean>(false)
   const [showResults, setShowResults] = useState<boolean>(false)
@@ -36,7 +30,7 @@ const MovieQuiz = ({
   const handleSelectQuestion = (pageNumber: number): void => {
     if (pageNumber === currentPage) return
 
-    setCurrentQuestion(testQuestions[pageNumber])
+    setCurrentQuestion(quizQuestions[pageNumber])
     setCurrentPage(pageNumber)
     setCurrentAnswer(selectedAnswers[pageNumber])
   }
@@ -63,7 +57,7 @@ const MovieQuiz = ({
             <Button onClick={() => handleSiteView(true, false)}>
               <i className='bi bi-arrow-left'></i> Select another movie{' '}
             </Button>
-            <h2>Movie: {selectedMovie}</h2>
+            <h2>Movie: {movieTitle}</h2>
             <h3>{currentQuestion.question}</h3>
             <div className={css.questions_grid}>
               {currentQuestion.answers.map((answer) => (
@@ -81,7 +75,7 @@ const MovieQuiz = ({
               ))}
             </div>
             <Pagination size='lg' className={css.pagination}>
-              {testQuestions.map((question, index) => {
+              {quizQuestions.map((question, index) => {
                 return (
                   <Pagination.Item
                     key={question.question_id}
@@ -104,6 +98,7 @@ const MovieQuiz = ({
           <MovieQuizResults
             selectedAnswers={selectedAnswers}
             handleSiteView={handleSiteView}
+            quizQuestions={quizQuestions}
           />
         )}
       </div>

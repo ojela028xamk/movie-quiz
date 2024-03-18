@@ -2,13 +2,16 @@ import { Button, Card, Form, InputGroup } from 'react-bootstrap'
 import { useState } from 'react'
 import { getSearchedMovies } from '../Services/movieDatabaseService'
 import { useKeyPressEvent } from 'react-use'
-import { CurrentMovieList, MovieSearchResponse } from '../globalTypes'
+import {
+  CurrentMovieList,
+  MovieResult,
+  MovieSearchResponse,
+} from '../globalTypes'
 import css from './MovieList.module.scss'
-import { createNewQuiz } from '../Services/questionService'
 
 type MovieListProps = {
   handleSiteView: (showList: boolean, showQuiz: boolean) => void
-  setSelectedMovie: React.Dispatch<React.SetStateAction<string>>
+  setSelectedMovie: React.Dispatch<React.SetStateAction<MovieResult | null>>
 }
 
 const MovieList = ({
@@ -45,8 +48,7 @@ const MovieList = ({
   }
 
   const handleSelectMovie = (movie: CurrentMovieList): void => {
-    createNewQuiz(movie.data)
-    setSelectedMovie(movie.title)
+    setSelectedMovie(movie.data)
     handleSiteView(false, true)
   }
 
