@@ -2,10 +2,11 @@ import { nanoid } from 'nanoid'
 import {
   MovieCreditsResult,
   MovieCrew,
+  MovieDetailsResult,
   MovieResult,
   QuizQuestion,
 } from '../globalTypes'
-import { getMovieCredits } from './movieDatabaseService'
+import { getMovieCredits, getMovieDetails } from './movieDatabaseService'
 
 const askReleaseYear = (date: string): QuizQuestion => {
   const correctDate = Number(date.substring(0, 4))
@@ -79,6 +80,9 @@ const askDirector = (movieCrew: MovieCrew[]): QuizQuestion => {
 }
 
 const createNewQuiz = async (data: MovieResult): Promise<QuizQuestion[]> => {
+  const detailsData = (await getMovieDetails(
+    String(data.id),
+  )) as MovieDetailsResult
   const creditsData = (await getMovieCredits(
     String(data.id),
   )) as MovieCreditsResult
