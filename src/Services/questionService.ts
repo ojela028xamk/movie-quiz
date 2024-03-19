@@ -3,10 +3,12 @@ import {
   MovieCreditsResult,
   MovieCrew,
   MovieDetailsResult,
+  MovieProductionCompanies,
   MovieResult,
   QuizQuestion,
 } from '../globalTypes'
 import { getMovieCredits, getMovieDetails } from './movieDatabaseService'
+import { getWrongMovieCompanies } from './wrongAnswerService'
 
 const askReleaseYear = (date: string): QuizQuestion => {
   const correctDate = Number(date.substring(0, 4))
@@ -79,18 +81,49 @@ const askDirector = (movieCrew: MovieCrew[]): QuizQuestion => {
   return newQuestion
 }
 
+const askProductionCompany = (
+  movieCompanies: MovieProductionCompanies[],
+): QuizQuestion => {
+  const wrongCompanies = getWrongMovieCompanies(movieCompanies[0].name)
+
+  const newQuestion: QuizQuestion = {
+    question_id: nanoid(),
+    question:
+      'Which one of these movie companies is part of the production of this movie?',
+    answers: [
+      {
+        answer_id: nanoid(),
+        answer: movieCompanies[0].name,
+        isCorrect: true,
+      },
+    ],
+  }
+
+  wrongCompanies.map((company) => {
+    newQuestion.answers.push({
+      answer_id: nanoid(),
+      answer: company,
+      isCorrect: false,
+    })
+  })
+
+  return newQuestion
+}
+
 const createNewQuiz = async (data: MovieResult): Promise<QuizQuestion[]> => {
   const detailsData = (await getMovieDetails(
     String(data.id),
   )) as MovieDetailsResult
+
   const creditsData = (await getMovieCredits(
     String(data.id),
   )) as MovieCreditsResult
 
-  if (creditsData && creditsData.crew && creditsData.crew.length) {
+  if (creditsData && detailsData) {
     const q1 = askReleaseYear(data.release_date)
     const q2 = askDirector(creditsData.crew)
-    return [q1, q2]
+    const q3 = askProductionCompany(detailsData.production_companies)
+    return [q1, q2, q3]
   } else {
     return []
   }
