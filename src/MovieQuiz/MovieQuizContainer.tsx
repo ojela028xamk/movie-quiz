@@ -1,9 +1,9 @@
 import { Spinner } from 'react-bootstrap'
-import { createNewQuiz } from '../Services/questionService'
 import { MovieResult, QuizQuestion } from '../globalTypes'
 import MovieQuiz from './MovieQuiz'
 import { useEffectOnce } from 'react-use'
 import { useState } from 'react'
+import { createNewQuiz } from '../Services/quizService'
 
 type MovieQuizContainerProps = {
   handleSiteView: (showList: boolean, showQuiz: boolean) => void
