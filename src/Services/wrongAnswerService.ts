@@ -1,8 +1,10 @@
+import { MovieCast } from '../globalTypes'
+
 const getWrongMovieCompanies = (correctAnswer: string): string[] => {
   const wrongAnswers: string[] = []
   let count = 0
 
-  const companiesList: string[] = [
+  const companiesList = [
     'Miramax',
     'Columbia Pictures',
     '87Eleven',
@@ -68,4 +70,54 @@ const getWrongMovieBudgets = (budget: number): number[] => {
   return wrongAnswers
 }
 
-export { getWrongMovieCompanies, getWrongMovieBudgets }
+const getWrongActors = (cast: MovieCast[], correctAnswer: string): string[] => {
+  const wrongAnswers: string[] = []
+  const actorsList = cast.slice(0, 10).map((actor) => {
+    return actor.name
+  })
+  let count = 0
+
+  while (count < 3) {
+    const randomAnswer =
+      actorsList[Math.floor(Math.random() * actorsList.length)]
+    if (
+      !wrongAnswers.some((answer) => answer === randomAnswer) &&
+      correctAnswer !== randomAnswer
+    ) {
+      wrongAnswers.push(randomAnswer)
+      count++
+    }
+  }
+  return wrongAnswers
+}
+
+const getWrongCharacters = (
+  cast: MovieCast[],
+  correctAnswer: string,
+): string[] => {
+  const wrongAnswers: string[] = []
+  const charactersList = cast.slice(0, 10).map((actor) => {
+    return actor.character
+  })
+  let count = 0
+
+  while (count < 3) {
+    const randomAnswer =
+      charactersList[Math.floor(Math.random() * charactersList.length)]
+    if (
+      !wrongAnswers.some((answer) => answer === randomAnswer) &&
+      correctAnswer !== randomAnswer
+    ) {
+      wrongAnswers.push(randomAnswer)
+      count++
+    }
+  }
+  return wrongAnswers
+}
+
+export {
+  getWrongMovieCompanies,
+  getWrongMovieBudgets,
+  getWrongActors,
+  getWrongCharacters,
+}
