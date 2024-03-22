@@ -91,4 +91,33 @@ const getWrongActors = (cast: MovieCast[], correctAnswer: string): string[] => {
   return wrongAnswers
 }
 
-export { getWrongMovieCompanies, getWrongMovieBudgets, getWrongActors }
+const getWrongCharacters = (
+  cast: MovieCast[],
+  correctAnswer: string,
+): string[] => {
+  const wrongAnswers: string[] = []
+  const charactersList = cast.slice(0, 10).map((actor) => {
+    return actor.character
+  })
+  let count = 0
+
+  while (count < 3) {
+    const randomAnswer =
+      charactersList[Math.floor(Math.random() * charactersList.length)]
+    if (
+      !wrongAnswers.some((answer) => answer === randomAnswer) &&
+      correctAnswer !== randomAnswer
+    ) {
+      wrongAnswers.push(randomAnswer)
+      count++
+    }
+  }
+  return wrongAnswers
+}
+
+export {
+  getWrongMovieCompanies,
+  getWrongMovieBudgets,
+  getWrongActors,
+  getWrongCharacters,
+}

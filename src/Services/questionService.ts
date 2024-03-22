@@ -11,6 +11,7 @@ import {
 import { getMovieCredits, getMovieDetails } from './movieDatabaseService'
 import {
   getWrongActors,
+  getWrongCharacters,
   getWrongMovieBudgets,
   getWrongMovieCompanies,
 } from './wrongAnswerService'
@@ -169,6 +170,34 @@ const askActorPlaysCharacter = (cast: MovieCast[]): QuizQuestion => {
   return newQuestion
 }
 
+const askCharacterIsActor = (cast: MovieCast[]): QuizQuestion => {
+  const randomIndex = Math.floor(Math.random() * 6)
+  const randomCharacter = cast[randomIndex]
+  const wrongCharacters = getWrongCharacters(cast, randomCharacter.character)
+
+  const newQuestion: QuizQuestion = {
+    question_id: nanoid(),
+    question: `Actor '${randomCharacter.name}' plays which character?`,
+    answers: [
+      {
+        answer_id: nanoid(),
+        answer: randomCharacter.character,
+        isCorrect: true,
+      },
+    ],
+  }
+
+  wrongCharacters.map((character) => {
+    newQuestion.answers.push({
+      answer_id: nanoid(),
+      answer: character,
+      isCorrect: false,
+    })
+  })
+
+  return newQuestion
+}
+
 const createNewQuiz = async (data: MovieResult): Promise<QuizQuestion[]> => {
   const detailsData = (await getMovieDetails(
     String(data.id),
@@ -184,8 +213,9 @@ const createNewQuiz = async (data: MovieResult): Promise<QuizQuestion[]> => {
     const q3 = askProductionCompany(detailsData.production_companies)
     const q4 = askMovieBudget(detailsData.budget)
     const q5 = askActorPlaysCharacter(creditsData.cast)
+    const q6 = askCharacterIsActor(creditsData.cast)
 
-    return [q1, q2, q3, q4, q5]
+    return [q1, q2, q3, q4, q5, q6]
   } else {
     return []
   }
