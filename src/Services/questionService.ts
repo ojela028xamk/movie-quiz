@@ -122,7 +122,7 @@ const askMovieBudget = (movieBudget: number): QuizQuestion => {
     answers: [
       {
         answer_id: nanoid(),
-        answer: movieBudget,
+        answer: Intl.NumberFormat().format(movieBudget) + ' $',
         isCorrect: true,
       },
     ],
@@ -131,7 +131,7 @@ const askMovieBudget = (movieBudget: number): QuizQuestion => {
   wrongBudgets.map((budget) => {
     newQuestion.answers.push({
       answer_id: nanoid(),
-      answer: budget,
+      answer: Intl.NumberFormat().format(budget) + ' $',
       isCorrect: false,
     })
   })

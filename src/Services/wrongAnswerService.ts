@@ -42,7 +42,7 @@ const getWrongMovieCompanies = (correctAnswer: string): string[] => {
 
 const getWrongMovieBudgets = (budget: number): number[] => {
   let count = 0
-  const wrongBudgets: number[] = []
+  const wrongAnswers: number[] = []
 
   while (count < 3) {
     const wrongBudget = Math.floor(Math.random() * budget)
@@ -57,15 +57,15 @@ const getWrongMovieBudgets = (budget: number): number[] => {
       Math.round(wrongBudget / Number(start)) * Number(start)
 
     if (
-      !wrongBudgets.some((answer) => answer === roundedWrongBudget) &&
+      !wrongAnswers.some((answer) => answer === roundedWrongBudget) &&
       budget !== roundedWrongBudget
     ) {
-      wrongBudgets.push(roundedWrongBudget)
+      wrongAnswers.push(roundedWrongBudget)
       count++
     }
   }
 
-  return wrongBudgets
+  return wrongAnswers
 }
 
 export { getWrongMovieCompanies, getWrongMovieBudgets }
