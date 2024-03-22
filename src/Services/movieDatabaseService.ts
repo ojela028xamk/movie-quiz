@@ -1,10 +1,11 @@
+const token = process.env.REACT_APP_TMDB
+
 const getSearchedMovies = async (searchName: string): Promise<unknown> => {
   const options = {
     method: 'GET',
     headers: {
       accept: 'application/json',
-      Authorization:
-        'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjNWY5MDE2ZTJlN2Q0Yjc2MTQxZGQ5NGZiNWJjYmUwNCIsInN1YiI6IjY1ZGRkODhiYzQzM2VhMDE0OTNiZTAwZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.4xfj8Uziplw7TboRPdkIqD64C--aI9HWoyX2ZLVSHUI',
+      Authorization: `Bearer ${token}`,
     },
   }
 
@@ -24,8 +25,7 @@ const getMovieDetails = async (movieId: string): Promise<unknown> => {
     method: 'GET',
     headers: {
       accept: 'application/json',
-      Authorization:
-        'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjNWY5MDE2ZTJlN2Q0Yjc2MTQxZGQ5NGZiNWJjYmUwNCIsInN1YiI6IjY1ZGRkODhiYzQzM2VhMDE0OTNiZTAwZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.4xfj8Uziplw7TboRPdkIqD64C--aI9HWoyX2ZLVSHUI',
+      Authorization: `Bearer ${token}`,
     },
   }
 
@@ -45,8 +45,7 @@ const getMovieCredits = async (movieId: string): Promise<unknown> => {
     method: 'GET',
     headers: {
       accept: 'application/json',
-      Authorization:
-        'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjNWY5MDE2ZTJlN2Q0Yjc2MTQxZGQ5NGZiNWJjYmUwNCIsInN1YiI6IjY1ZGRkODhiYzQzM2VhMDE0OTNiZTAwZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.4xfj8Uziplw7TboRPdkIqD64C--aI9HWoyX2ZLVSHUI',
+      Authorization: `Bearer ${token}`,
     },
   }
 
