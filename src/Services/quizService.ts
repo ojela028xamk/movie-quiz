@@ -27,6 +27,26 @@ const hasEnoughData = (credits: MovieCreditsResult): boolean => {
   }
 }
 
+// https://bost.ocks.org/mike/shuffle/
+const shuffleArray = (array: QuizQuestion[]): QuizQuestion[] => {
+  let m = array.length,
+    t,
+    i
+
+  // While there remain elements to shuffle…
+  while (m) {
+    // Pick a remaining element…
+    i = Math.floor(Math.random() * m--)
+
+    // And swap it with the current element.
+    t = array[m]
+    array[m] = array[i]
+    array[i] = t
+  }
+
+  return array
+}
+
 const createNewQuiz = async (data: MovieResult): Promise<QuizQuestion[]> => {
   const detailsData = (await getMovieDetails(
     String(data.id),
@@ -44,10 +64,12 @@ const createNewQuiz = async (data: MovieResult): Promise<QuizQuestion[]> => {
     const q5 = askActorPlaysCharacter(creditsData.cast)
     const q6 = askCharacterIsActor(creditsData.cast)
 
-    return [q1, q2, q3, q4, q5, q6]
+    const quizQuestionsList = [q1, q2, q3, q4, q5, q6]
+
+    return shuffleArray(quizQuestionsList)
   } else {
     return []
   }
 }
 
-export { createNewQuiz }
+export { createNewQuiz, shuffleArray }
