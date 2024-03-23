@@ -14,6 +14,19 @@ import {
   askReleaseYear,
 } from './questionService'
 
+const hasEnoughData = (credits: MovieCreditsResult): boolean => {
+  const hasDirector = credits.crew.find(
+    (member) => member.department === 'Directing',
+  )
+  const hasActors = credits.cast.length > 5
+
+  if (!hasDirector || !hasActors) {
+    return false
+  } else {
+    return true
+  }
+}
+
 const createNewQuiz = async (data: MovieResult): Promise<QuizQuestion[]> => {
   const detailsData = (await getMovieDetails(
     String(data.id),
@@ -23,7 +36,7 @@ const createNewQuiz = async (data: MovieResult): Promise<QuizQuestion[]> => {
     String(data.id),
   )) as MovieCreditsResult
 
-  if (creditsData && detailsData) {
+  if (detailsData && creditsData && hasEnoughData(creditsData)) {
     const q1 = askReleaseYear(data.release_date)
     const q2 = askDirector(creditsData.crew)
     const q3 = askProductionCompany(detailsData.production_companies)
