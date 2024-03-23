@@ -77,14 +77,23 @@ const createNewQuiz = async (data: MovieResult): Promise<QuizQuestion[]> => {
   )) as MovieCreditsResult
 
   if (detailsData && creditsData && hasEnoughData(creditsData)) {
+    const randomIndexOne = Math.floor(Math.random() * 6)
+    let randomIndexTwo = Math.floor(Math.random() * 6)
+
+    do {
+      randomIndexTwo = Math.floor(Math.random() * 6)
+    } while (randomIndexOne === randomIndexTwo)
+
     const q1 = askReleaseYear(data.release_date)
     const q2 = askDirector(creditsData.crew)
     const q3 = askProductionCompany(detailsData.production_companies)
     const q4 = askMovieBudget(detailsData.budget)
-    const q5 = askActorPlaysCharacter(creditsData.cast)
-    const q6 = askCharacterIsActor(creditsData.cast)
+    const q5 = askActorPlaysCharacter(creditsData.cast, randomIndexOne)
+    const q6 = askActorPlaysCharacter(creditsData.cast, randomIndexTwo)
+    const q7 = askCharacterIsActor(creditsData.cast, randomIndexOne)
+    const q8 = askCharacterIsActor(creditsData.cast, randomIndexTwo)
 
-    const quizQuestionsList = [q1, q2, q3, q4, q5, q6]
+    const quizQuestionsList = [q1, q2, q3, q4, q5, q6, q7, q8]
 
     return shuffleQuestionsArray(quizQuestionsList)
   } else {

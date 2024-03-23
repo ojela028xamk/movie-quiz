@@ -147,8 +147,10 @@ const askMovieBudget = (movieBudget: number): QuizQuestion => {
   return newQuestion
 }
 
-const askActorPlaysCharacter = (cast: MovieCast[]): QuizQuestion => {
-  const randomIndex = Math.floor(Math.random() * 6)
+const askActorPlaysCharacter = (
+  cast: MovieCast[],
+  randomIndex: number,
+): QuizQuestion => {
   const randomActor = cast[randomIndex]
   const wrongActors = getWrongActors(cast, randomActor.name)
 
@@ -177,8 +179,10 @@ const askActorPlaysCharacter = (cast: MovieCast[]): QuizQuestion => {
   return newQuestion
 }
 
-const askCharacterIsActor = (cast: MovieCast[]): QuizQuestion => {
-  const randomIndex = Math.floor(Math.random() * 6)
+const askCharacterIsActor = (
+  cast: MovieCast[],
+  randomIndex: number,
+): QuizQuestion => {
   const randomCharacter = cast[randomIndex]
   const wrongCharacters = getWrongCharacters(cast, randomCharacter.character)
 
