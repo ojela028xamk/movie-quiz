@@ -1,20 +1,17 @@
 import { nanoid } from 'nanoid'
 import {
   MovieCast,
-  MovieCreditsResult,
   MovieCrew,
-  MovieDetailsResult,
   MovieProductionCompanies,
-  MovieResult,
   QuizQuestion,
 } from '../globalTypes'
-import { getMovieCredits, getMovieDetails } from './movieDatabaseService'
 import {
   getWrongActors,
   getWrongCharacters,
   getWrongMovieBudgets,
   getWrongMovieCompanies,
 } from './wrongAnswerService'
+import { shuffleAnswersArray } from './quizService'
 
 const askReleaseYear = (date: string): QuizQuestion => {
   const correctDate = Number(date.substring(0, 4))
@@ -44,6 +41,8 @@ const askReleaseYear = (date: string): QuizQuestion => {
       isCorrect: false,
     })
   }
+
+  newQuestion.answers = shuffleAnswersArray(newQuestion.answers)
 
   return newQuestion
 }
@@ -84,6 +83,8 @@ const askDirector = (movieCrew: MovieCrew[]): QuizQuestion => {
     if (newQuestion.answers.length === 4) break
   }
 
+  newQuestion.answers = shuffleAnswersArray(newQuestion.answers)
+
   return newQuestion
 }
 
@@ -113,6 +114,8 @@ const askProductionCompany = (
     })
   })
 
+  newQuestion.answers = shuffleAnswersArray(newQuestion.answers)
+
   return newQuestion
 }
 
@@ -139,11 +142,15 @@ const askMovieBudget = (movieBudget: number): QuizQuestion => {
     })
   })
 
+  newQuestion.answers = shuffleAnswersArray(newQuestion.answers)
+
   return newQuestion
 }
 
-const askActorPlaysCharacter = (cast: MovieCast[]): QuizQuestion => {
-  const randomIndex = Math.floor(Math.random() * 6)
+const askActorPlaysCharacter = (
+  cast: MovieCast[],
+  randomIndex: number,
+): QuizQuestion => {
   const randomActor = cast[randomIndex]
   const wrongActors = getWrongActors(cast, randomActor.name)
 
@@ -167,11 +174,15 @@ const askActorPlaysCharacter = (cast: MovieCast[]): QuizQuestion => {
     })
   })
 
+  newQuestion.answers = shuffleAnswersArray(newQuestion.answers)
+
   return newQuestion
 }
 
-const askCharacterIsActor = (cast: MovieCast[]): QuizQuestion => {
-  const randomIndex = Math.floor(Math.random() * 6)
+const askCharacterIsActor = (
+  cast: MovieCast[],
+  randomIndex: number,
+): QuizQuestion => {
   const randomCharacter = cast[randomIndex]
   const wrongCharacters = getWrongCharacters(cast, randomCharacter.character)
 
@@ -195,30 +206,16 @@ const askCharacterIsActor = (cast: MovieCast[]): QuizQuestion => {
     })
   })
 
+  newQuestion.answers = shuffleAnswersArray(newQuestion.answers)
+
   return newQuestion
 }
 
-const createNewQuiz = async (data: MovieResult): Promise<QuizQuestion[]> => {
-  const detailsData = (await getMovieDetails(
-    String(data.id),
-  )) as MovieDetailsResult
-
-  const creditsData = (await getMovieCredits(
-    String(data.id),
-  )) as MovieCreditsResult
-
-  if (creditsData && detailsData) {
-    const q1 = askReleaseYear(data.release_date)
-    const q2 = askDirector(creditsData.crew)
-    const q3 = askProductionCompany(detailsData.production_companies)
-    const q4 = askMovieBudget(detailsData.budget)
-    const q5 = askActorPlaysCharacter(creditsData.cast)
-    const q6 = askCharacterIsActor(creditsData.cast)
-
-    return [q1, q2, q3, q4, q5, q6]
-  } else {
-    return []
-  }
+export {
+  askReleaseYear,
+  askDirector,
+  askProductionCompany,
+  askMovieBudget,
+  askActorPlaysCharacter,
+  askCharacterIsActor,
 }
-
-export { createNewQuiz }
