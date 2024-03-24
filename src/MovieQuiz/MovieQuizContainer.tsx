@@ -1,9 +1,10 @@
-import { Spinner } from 'react-bootstrap'
+import { Button, Spinner } from 'react-bootstrap'
 import { MovieResult, QuizQuestion } from '../globalTypes'
 import MovieQuiz from './MovieQuiz'
 import { useEffectOnce } from 'react-use'
 import { useState } from 'react'
 import { createNewQuiz } from '../Services/quizService'
+import css from './MovieQuiz.module.scss'
 
 type MovieQuizContainerProps = {
   handleSiteView: (showList: boolean, showQuiz: boolean) => void
@@ -41,7 +42,14 @@ const MovieQuizContainer = ({
   if (isLoading) return <Spinner animation='border' role='status' />
 
   if (!quizQuestions.length)
-    return <h3>Not enought data to creata a quiz...</h3>
+    return (
+      <div className={css.movie_quiz_no_data}>
+        <h3>Not enought data to creata a quiz...</h3>
+        <Button onClick={() => handleSiteView(true, false)}>
+          <i className='bi bi-arrow-left'></i> Select another movie{' '}
+        </Button>
+      </div>
+    )
 
   return (
     <MovieQuiz
