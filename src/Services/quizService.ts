@@ -77,21 +77,24 @@ const createNewQuiz = async (data: MovieResult): Promise<QuizQuestion[]> => {
   )) as MovieCreditsResult
 
   if (detailsData && creditsData && hasEnoughData(creditsData)) {
-    const randomIndexOne = Math.floor(Math.random() * 6)
-    let randomIndexTwo = Math.floor(Math.random() * 6)
+    const randomIndexList: number[] = []
+    const targetLength = 4
 
     do {
-      randomIndexTwo = Math.floor(Math.random() * 6)
-    } while (randomIndexOne === randomIndexTwo)
+      const randomIndex = Math.floor(Math.random() * 6)
+      if (!randomIndexList.includes(randomIndex)) {
+        randomIndexList.push(randomIndex)
+      }
+    } while (randomIndexList.length < targetLength)
 
     const q1 = askReleaseYear(data.release_date)
     const q2 = askDirector(creditsData.crew)
     const q3 = askProductionCompany(detailsData.production_companies)
     const q4 = askMovieBudget(detailsData.budget)
-    const q5 = askActorPlaysCharacter(creditsData.cast, randomIndexOne)
-    const q6 = askActorPlaysCharacter(creditsData.cast, randomIndexTwo)
-    const q7 = askCharacterIsActor(creditsData.cast, randomIndexOne)
-    const q8 = askCharacterIsActor(creditsData.cast, randomIndexTwo)
+    const q5 = askActorPlaysCharacter(creditsData.cast, randomIndexList[0])
+    const q6 = askActorPlaysCharacter(creditsData.cast, randomIndexList[1])
+    const q7 = askCharacterIsActor(creditsData.cast, randomIndexList[2])
+    const q8 = askCharacterIsActor(creditsData.cast, randomIndexList[3])
 
     const quizQuestionsList = [q1, q2, q3, q4, q5, q6, q7, q8]
 
