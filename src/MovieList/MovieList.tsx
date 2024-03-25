@@ -8,6 +8,7 @@ import {
   MovieSearchResponse,
 } from '../globalTypes'
 import css from './MovieList.module.scss'
+import { isValidMovieData } from '../typeGuards'
 
 type MovieListProps = {
   handleSiteView: (showList: boolean, showQuiz: boolean) => void
@@ -29,6 +30,8 @@ const MovieList = ({
         const searchedMovies = res as MovieSearchResponse
         const newMovieList: CurrentMovieList[] = []
 
+        if (!isValidMovieData(searchedMovies.results)) throw Error
+
         if (
           searchedMovies &&
           searchedMovies.results &&
@@ -37,14 +40,17 @@ const MovieList = ({
           searchedMovies.results.map((movie) =>
             newMovieList.push({
               title: movie.title,
-              image: movie.poster_path,
+              image: movie.poster_path ? movie.poster_path : '',
               data: movie,
             }),
           )
           setCurrentMovieList(newMovieList)
         }
       })
-      .catch((err) => console.log(err))
+      .catch((err) => {
+        console.log(err)
+        setCurrentMovieList([])
+      })
   }
 
   const handleSelectMovie = (movie: CurrentMovieList): void => {
