@@ -5,7 +5,7 @@ const isValidMovieDataObject = (data: MovieResult): data is MovieResult => {
     'id' in data &&
     'poster_path' in data &&
     'release_date' in data &&
-    'tit' in data
+    'title' in data
 
   if (!hasCorrectKeys) return false
   if (
