@@ -1,4 +1,6 @@
 import {
+  MovieCreditsResult,
+  MovieCrew,
   MovieDetailsResult,
   MovieProductionCompanies,
   MovieResult,
@@ -37,11 +39,11 @@ const isValidMovieData = (dataArr: MovieResult[]): dataArr is MovieResult[] => {
 }
 
 const isValidMovieCompanyObject = (
-  companiesArr: MovieProductionCompanies,
-): companiesArr is MovieProductionCompanies => {
-  const hasNameKey = 'name' in companiesArr
+  companyObj: MovieProductionCompanies,
+): companyObj is MovieProductionCompanies => {
+  const hasNameKey = 'name' in companyObj
 
-  if (!hasNameKey || typeof companiesArr.name !== 'string') return false
+  if (!hasNameKey || typeof companyObj.name !== 'string') return false
 
   return true
 }
@@ -70,4 +72,33 @@ const isValidMovieDetailsData = (
   return true
 }
 
-export { isValidMovieData, isValidMovieDetailsData }
+const isValidCrewObject = (crewObj: MovieCrew): crewObj is MovieCrew => {
+  const hasDepartmentAndNameKeys = 'department' in crewObj && 'name' in crewObj
+
+  if (!hasDepartmentAndNameKeys) return false
+
+  return true
+}
+
+const isValidMovieCreditsData = (
+  creditsData: MovieCreditsResult,
+): creditsData is MovieCreditsResult => {
+  if (!creditsData) return false
+
+  const hasCrewCastKeys = 'crew' in creditsData && 'cast' in creditsData
+
+  if (!hasCrewCastKeys) return false
+
+  const crewIsArr = Array.isArray(creditsData.crew)
+  const castIsArr = Array.isArray(creditsData.cast)
+
+  if (!crewIsArr || !castIsArr) return false
+
+  const hasValidCrewObjects = creditsData.crew.every(isValidCrewObject)
+
+  if (!hasValidCrewObjects) return false
+
+  return true
+}
+
+export { isValidMovieData, isValidMovieDetailsData, isValidMovieCreditsData }

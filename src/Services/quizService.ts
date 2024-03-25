@@ -5,7 +5,7 @@ import {
   QuizAnswer,
   QuizQuestion,
 } from '../globalTypes'
-import { isValidMovieDetailsData } from '../typeGuards'
+import { isValidMovieCreditsData, isValidMovieDetailsData } from '../typeGuards'
 import { getMovieCredits, getMovieDetails } from './movieDatabaseService'
 import {
   askActorPlaysCharacter,
@@ -84,6 +84,7 @@ const createNewQuiz = async (data: MovieResult): Promise<QuizQuestion[]> => {
       creditsData = res[1] as MovieCreditsResult
 
       if (!isValidMovieDetailsData(detailsData)) throw Error
+      if (!isValidMovieCreditsData(creditsData)) throw Error
 
       if (
         detailsData &&
