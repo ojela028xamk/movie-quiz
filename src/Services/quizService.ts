@@ -16,13 +16,17 @@ import {
   askReleaseYear,
 } from './questionService'
 
-const hasEnoughData = (credits: MovieCreditsResult): boolean => {
+const hasEnoughData = (
+  details: MovieDetailsResult,
+  credits: MovieCreditsResult,
+): boolean => {
+  const hasProductionCompanies = details.production_companies.length
   const hasDirector = credits.crew.find(
     (member) => member.department === 'Directing',
   )
   const hasActors = credits.cast.length > 5
 
-  if (!hasDirector || !hasActors) {
+  if (!hasProductionCompanies || !hasDirector || !hasActors) {
     return false
   } else {
     return true
@@ -81,7 +85,11 @@ const createNewQuiz = async (data: MovieResult): Promise<QuizQuestion[]> => {
 
       if (!isValidMovieDetailsData(detailsData)) throw Error
 
-      if (detailsData && creditsData && hasEnoughData(creditsData)) {
+      if (
+        detailsData &&
+        creditsData &&
+        hasEnoughData(detailsData, creditsData)
+      ) {
         const randomIndexList: number[] = []
         const targetLength = 4
 
