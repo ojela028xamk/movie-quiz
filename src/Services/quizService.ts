@@ -5,6 +5,7 @@ import {
   QuizAnswer,
   QuizQuestion,
 } from '../globalTypes'
+import { isValidMovieDetailsData } from '../typeGuards'
 import { getMovieCredits, getMovieDetails } from './movieDatabaseService'
 import {
   askActorPlaysCharacter,
@@ -77,6 +78,8 @@ const createNewQuiz = async (data: MovieResult): Promise<QuizQuestion[]> => {
     .then((res) => {
       detailsData = res[0] as MovieDetailsResult
       creditsData = res[1] as MovieCreditsResult
+
+      if (!isValidMovieDetailsData(detailsData)) throw Error
 
       if (detailsData && creditsData && hasEnoughData(creditsData)) {
         const randomIndexList: number[] = []

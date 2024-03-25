@@ -1,4 +1,8 @@
-import { MovieResult } from './globalTypes'
+import {
+  MovieDetailsResult,
+  MovieProductionCompanies,
+  MovieResult,
+} from './globalTypes'
 
 const isValidMovieDataObject = (data: MovieResult): data is MovieResult => {
   const hasCorrectKeys =
@@ -32,4 +36,38 @@ const isValidMovieData = (dataArr: MovieResult[]): dataArr is MovieResult[] => {
   return true
 }
 
-export { isValidMovieData }
+const isValidMovieCompanyObject = (
+  companiesArr: MovieProductionCompanies,
+): companiesArr is MovieProductionCompanies => {
+  const hasNameKey = 'name' in companiesArr
+
+  if (!hasNameKey || typeof companiesArr.name !== 'string') return false
+
+  return true
+}
+
+const isValidMovieDetailsData = (
+  detailsData: MovieDetailsResult,
+): detailsData is MovieDetailsResult => {
+  if (!detailsData) return false
+
+  const hasCorrectKeys =
+    'budget' in detailsData && 'production_companies' in detailsData
+
+  if (!hasCorrectKeys) return false
+  if (typeof detailsData.budget !== 'number') return false
+
+  const isArray = Array.isArray(detailsData.production_companies)
+
+  if (!isArray) return false
+
+  const hasStringNameInObjects = detailsData.production_companies.every(
+    isValidMovieCompanyObject,
+  )
+
+  if (!hasStringNameInObjects) return false
+
+  return true
+}
+
+export { isValidMovieData, isValidMovieDetailsData }
