@@ -1,4 +1,4 @@
-import { Button, Card, Form, InputGroup } from 'react-bootstrap'
+import { Button, Card, Form, InputGroup, Pagination } from 'react-bootstrap'
 import { useState } from 'react'
 import { getSearchedMovies } from '../Services/movieDatabaseService'
 import { useKeyPressEvent } from 'react-use'
@@ -7,8 +7,8 @@ import {
   MovieResult,
   MovieSearchResponse,
 } from '../globalTypes'
-import css from './MovieList.module.scss'
 import { isValidMovieData } from '../typeGuards'
+import css from './MovieList.module.scss'
 
 type MovieListProps = {
   handleSiteView: (showList: boolean, showQuiz: boolean) => void
@@ -23,11 +23,41 @@ const MovieList = ({
   const [currentMovieList, setCurrentMovieList] = useState<CurrentMovieList[]>(
     [],
   )
+  const [slicedMovieList, setSlicedMovieList] = useState<CurrentMovieList[]>([])
+  const [paginationNums, setPaginationNums] = useState<number[]>([])
+  const [currentPage, setCurrentPage] = useState<number>(0)
+
+  const handleSelectListPage = (pageNumber: number): void => {
+    if (pageNumber === currentPage) return
+
+    setCurrentPage(pageNumber)
+
+    switch (pageNumber) {
+      case 1:
+        setSlicedMovieList(currentMovieList.slice(0, 4))
+        break
+      case 2:
+        setSlicedMovieList(currentMovieList.slice(4, 8))
+        break
+      case 3:
+        setSlicedMovieList(currentMovieList.slice(8, 12))
+        break
+      case 4:
+        setSlicedMovieList(currentMovieList.slice(12, 16))
+        break
+      case 5:
+      default:
+        setSlicedMovieList(currentMovieList.slice(16, 20))
+        break
+    }
+  }
 
   const handleSearchMovies = (): void => {
+    // Endpoint gives max 20 results
     getSearchedMovies(movieName)
       .then((res) => {
         const searchedMovies = res as MovieSearchResponse
+        const pageNumbers: number[] = []
         const newMovieList: CurrentMovieList[] = []
 
         if (!isValidMovieData(searchedMovies.results)) throw Error
@@ -37,6 +67,12 @@ const MovieList = ({
           searchedMovies.results &&
           searchedMovies.results.length
         ) {
+          const paginationLength = Math.ceil(searchedMovies.results.length / 4)
+
+          for (let i = 1; i < paginationLength + 1; i++) {
+            pageNumbers.push(i)
+          }
+
           searchedMovies.results.map((movie) =>
             newMovieList.push({
               title: movie.title,
@@ -44,7 +80,10 @@ const MovieList = ({
               data: movie,
             }),
           )
+
+          setPaginationNums(pageNumbers)
           setCurrentMovieList(newMovieList)
+          setSlicedMovieList(newMovieList.slice(0, 4))
         }
       })
       .catch((err) => {
@@ -76,9 +115,9 @@ const MovieList = ({
         </Button>
       </InputGroup>
       <div className={css.movie_grid}>
-        {currentMovieList &&
-          currentMovieList.length &&
-          currentMovieList.slice(0, 4).map((movie, index) => (
+        {slicedMovieList &&
+          slicedMovieList.length &&
+          slicedMovieList.map((movie, index) => (
             <Card
               key={index}
               className={css.movie_grid_card}
@@ -94,6 +133,21 @@ const MovieList = ({
               </Card.Body>
             </Card>
           ))}
+      </div>
+      <div className={css.movie_list_nav}>
+        <Pagination size='lg' className={css.pagination}>
+          {paginationNums.map((pageNum) => {
+            return (
+              <Pagination.Item
+                key={pageNum}
+                active={pageNum === currentPage}
+                onClick={() => handleSelectListPage(pageNum)}
+              >
+                {pageNum}
+              </Pagination.Item>
+            )
+          })}
+        </Pagination>
       </div>
     </div>
   )
