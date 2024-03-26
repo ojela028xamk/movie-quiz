@@ -25,7 +25,7 @@ const MovieList = ({
   )
   const [slicedMovieList, setSlicedMovieList] = useState<CurrentMovieList[]>([])
   const [paginationNums, setPaginationNums] = useState<number[]>([])
-  const [currentPage, setCurrentPage] = useState<number>(0)
+  const [currentPage, setCurrentPage] = useState<number>(1)
 
   const handleSelectListPage = (pageNumber: number): void => {
     if (pageNumber === currentPage) return
@@ -134,21 +134,19 @@ const MovieList = ({
             </Card>
           ))}
       </div>
-      <div className={css.movie_list_nav}>
-        <Pagination size='lg' className={css.pagination}>
-          {paginationNums.map((pageNum) => {
-            return (
-              <Pagination.Item
-                key={pageNum}
-                active={pageNum === currentPage}
-                onClick={() => handleSelectListPage(pageNum)}
-              >
-                {pageNum}
-              </Pagination.Item>
-            )
-          })}
-        </Pagination>
-      </div>
+      <Pagination size='lg' className={css.movie_list_nav}>
+        {paginationNums.map((pageNum) => {
+          return (
+            <Pagination.Item
+              key={pageNum}
+              active={pageNum === currentPage}
+              onClick={() => handleSelectListPage(pageNum)}
+            >
+              {pageNum}
+            </Pagination.Item>
+          )
+        })}
+      </Pagination>
     </div>
   )
 }

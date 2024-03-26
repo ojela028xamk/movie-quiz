@@ -25,13 +25,20 @@
     justify-items: center;
     gap: 2em;
 
+    .movie_grid_card {
+      background-color: $white;
+      color: black;
+    }
+
     .movie_grid_card:hover {
       cursor: pointer;
-      background-color: black;
-      color: white;
+      background-color: $green;
+      color: black;
     }
   }
 
   .movie_list_nav {
+    margin: 1em;
+    justify-content: center;
   }
 }
