@@ -1,9 +1,10 @@
 import { useState } from 'react'
-import Header from './Header/Header'
+import Header from './HeaderFooter/Header'
 import MovieList from './MovieList/MovieList'
 import css from './App.module.scss'
 import MovieQuizContainer from './MovieQuiz/MovieQuizContainer'
 import { MovieResult } from './globalTypes'
+import Footer from './HeaderFooter/Footer'
 
 const App = (): JSX.Element => {
   const [showMovieList, setShowMovieList] = useState<boolean>(true)
@@ -30,6 +31,7 @@ const App = (): JSX.Element => {
           selectedMovie={selectedMovie}
         />
       )}
+      <Footer />
     </div>
   )
 }

@@ -78,7 +78,7 @@ const MovieList = ({
       <div className={css.movie_grid}>
         {currentMovieList &&
           currentMovieList.length &&
-          currentMovieList.map((movie, index) => (
+          currentMovieList.slice(0, 4).map((movie, index) => (
             <Card
               key={index}
               className={css.movie_grid_card}

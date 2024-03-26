@@ -2,11 +2,11 @@
 
 .movie_list {
   min-height: 600px;
-  border: 2px solid white;
-  margin: 1em;
+  margin: 2em;
   padding: 1em;
 
   .search_button {
+    font-size: 1.1em;
     background-color: black;
     color: white;
     border: none;
@@ -20,6 +20,7 @@
 
   .movie_grid {
     display: grid;
+    margin-top: 3em;
     grid-template-columns: repeat(4, 1fr);
     justify-items: center;
     gap: 2em;
