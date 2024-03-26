@@ -1,14 +1,28 @@
+@import '../variables';
+
 .movie_list {
   min-height: 600px;
   border: 2px solid white;
   margin: 1em;
   padding: 1em;
 
+  .search_button {
+    background-color: black;
+    color: white;
+    border: none;
+  }
+
+  .search_button:hover {
+    background-color: $light-blue;
+    color: white;
+    border: none;
+  }
+
   .movie_grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     justify-items: center;
-    gap: 1em;
+    gap: 2em;
 
     .movie_grid_card:hover {
       cursor: pointer;

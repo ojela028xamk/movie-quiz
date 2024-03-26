@@ -71,7 +71,7 @@ const MovieList = ({
           value={movieName}
           onChange={(event) => setMovieName(event.currentTarget.value)}
         />
-        <Button variant='dark' onClick={handleSearchMovies}>
+        <Button className={css.search_button} onClick={handleSearchMovies}>
           Search
         </Button>
       </InputGroup>
@@ -82,7 +82,7 @@ const MovieList = ({
             <Card
               key={index}
               className={css.movie_grid_card}
-              style={{ width: '18rem' }}
+              style={{ width: 'auto' }}
               onClick={() => handleSelectMovie(movie)}
             >
               <Card.Img
