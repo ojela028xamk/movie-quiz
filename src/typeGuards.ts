@@ -1,4 +1,5 @@
 import {
+  MovieCast,
   MovieCreditsResult,
   MovieCrew,
   MovieDetailsResult,
@@ -76,6 +77,21 @@ const isValidCrewObject = (crewObj: MovieCrew): crewObj is MovieCrew => {
   const hasDepartmentAndNameKeys = 'department' in crewObj && 'name' in crewObj
 
   if (!hasDepartmentAndNameKeys) return false
+  if (
+    typeof crewObj.department !== 'string' ||
+    typeof crewObj.name !== 'string'
+  )
+    return false
+
+  return true
+}
+
+const isValidCastObject = (castObj: MovieCast): castObj is MovieCast => {
+  const hasCharacterAndNameKeys = 'character' in castObj && 'name' in castObj
+
+  if (!hasCharacterAndNameKeys) return false
+  if (typeof castObj.character !== 'string' || typeof castObj.name !== 'string')
+    return false
 
   return true
 }
@@ -95,8 +111,9 @@ const isValidMovieCreditsData = (
   if (!crewIsArr || !castIsArr) return false
 
   const hasValidCrewObjects = creditsData.crew.every(isValidCrewObject)
+  const hasValidCastObjects = creditsData.cast.every(isValidCastObject)
 
-  if (!hasValidCrewObjects) return false
+  if (!hasValidCrewObjects || !hasValidCastObjects) return false
 
   return true
 }
