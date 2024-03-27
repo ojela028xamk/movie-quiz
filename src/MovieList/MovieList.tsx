@@ -1,11 +1,4 @@
-import {
-  Button,
-  Card,
-  Form,
-  InputGroup,
-  Pagination,
-  Spinner,
-} from 'react-bootstrap'
+import { Button, Card, Form, InputGroup, Pagination } from 'react-bootstrap'
 import { Fragment, useState } from 'react'
 import { getSearchedMovies } from '../Services/movieDatabaseService'
 import { useKeyPressEvent } from 'react-use'
@@ -134,7 +127,7 @@ const MovieList = ({
       </InputGroup>
       <div className={css.movie_grid}>
         {isLoading ? (
-          <Spinner animation='border' role='status' />
+          <div className={css.loader}></div>
         ) : (
           <Fragment>
             {slicedMovieList &&
@@ -143,7 +136,6 @@ const MovieList = ({
                 <Card
                   key={index}
                   className={css.movie_grid_card}
-                  style={{ width: 'auto' }}
                   onClick={() => handleSelectMovie(movie)}
                 >
                   <Card.Img

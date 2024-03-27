@@ -1,5 +1,25 @@
 @import '../variables';
 
+// https://css-loaders.com/classic/
+.loader {
+  width: fit-content;
+  color: $white;
+  font-weight: bold;
+  font-family: monospace;
+  font-size: 30px;
+  clip-path: inset(0 3ch 0 0);
+  animation: l4 1s steps(4) infinite;
+}
+.loader:before {
+  color: $white;
+  content: 'Searching...';
+}
+@keyframes l4 {
+  to {
+    clip-path: inset(0 -1ch 0 0);
+  }
+}
+
 .movie_list {
   min-height: 600px;
   margin: 1em;
@@ -38,6 +58,7 @@
     .movie_grid_card {
       background-color: $white;
       color: black;
+      overflow: hidden;
     }
 
     .movie_grid_card:hover {
