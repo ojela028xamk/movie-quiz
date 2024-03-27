@@ -2,28 +2,38 @@
 
 .movie_list {
   min-height: 600px;
-  margin: 2em;
+  margin: 1em;
   padding: 1em;
 
-  .search_button {
-    font-size: 1.1em;
-    background-color: $light-blue;
-    color: white;
-    border: none;
-  }
+  .movie_list_search {
+    margin: auto;
+    width: 40vw;
 
-  .search_button:hover {
-    background-color: black;
-    color: white;
-    border: none;
+    .search_button {
+      font-size: 1.1em;
+      background-color: $light-blue;
+      color: white;
+      border: none;
+    }
+
+    .search_button:hover {
+      background-color: black;
+      color: white;
+      border: none;
+    }
   }
 
   .movie_grid {
     display: grid;
+    height: 500px;
     margin-top: 3em;
+    padding: 1em;
     grid-template-columns: repeat(4, 1fr);
     justify-items: center;
     gap: 2em;
+    border-left: 5px solid $white;
+    border-right: 5px solid $white;
+    border-radius: 2em;
 
     .movie_grid_card {
       background-color: $white;
@@ -38,7 +48,19 @@
   }
 
   .movie_list_nav {
-    margin: 1em;
+    margin-top: 2em;
     justify-content: center;
+
+    span {
+      background-color: $light-blue;
+      color: white;
+      border-color: black;
+    }
+
+    a {
+      background-color: $white;
+      color: black;
+      border-color: black;
+    }
   }
 }

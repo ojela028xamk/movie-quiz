@@ -1,5 +1,12 @@
-import { Button, Card, Form, InputGroup, Pagination } from 'react-bootstrap'
-import { useState } from 'react'
+import {
+  Button,
+  Card,
+  Form,
+  InputGroup,
+  Pagination,
+  Spinner,
+} from 'react-bootstrap'
+import { Fragment, useState } from 'react'
 import { getSearchedMovies } from '../Services/movieDatabaseService'
 import { useKeyPressEvent } from 'react-use'
 import {
@@ -26,6 +33,7 @@ const MovieList = ({
   const [slicedMovieList, setSlicedMovieList] = useState<CurrentMovieList[]>([])
   const [paginationNums, setPaginationNums] = useState<number[]>([])
   const [currentPage, setCurrentPage] = useState<number>(1)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const handleSelectListPage = (pageNumber: number): void => {
     if (pageNumber === currentPage) return
@@ -53,6 +61,8 @@ const MovieList = ({
   }
 
   const handleSearchMovies = (): void => {
+    setIsLoading(true)
+
     // Endpoint gives max 20 results
     getSearchedMovies(movieName)
       .then((res) => {
@@ -82,6 +92,7 @@ const MovieList = ({
           )
 
           setPaginationNums(pageNumbers)
+          setCurrentPage(1)
           setCurrentMovieList(newMovieList)
           setSlicedMovieList(newMovieList.slice(0, 4))
         }
@@ -89,6 +100,9 @@ const MovieList = ({
       .catch((err) => {
         console.log(err)
         setCurrentMovieList([])
+      })
+      .finally(() => {
+        setIsLoading(false)
       })
   }
 
@@ -101,7 +115,7 @@ const MovieList = ({
 
   return (
     <div className={css.movie_list}>
-      <InputGroup className='mb-3'>
+      <InputGroup className={css.movie_list_search}>
         <InputGroup.Text>
           <i className='bi bi-search'></i>
         </InputGroup.Text>
@@ -110,29 +124,39 @@ const MovieList = ({
           value={movieName}
           onChange={(event) => setMovieName(event.currentTarget.value)}
         />
-        <Button className={css.search_button} onClick={handleSearchMovies}>
+        <Button
+          variant='dark'
+          className={css.search_button}
+          onClick={handleSearchMovies}
+        >
           Search
         </Button>
       </InputGroup>
       <div className={css.movie_grid}>
-        {slicedMovieList &&
-          slicedMovieList.length &&
-          slicedMovieList.map((movie, index) => (
-            <Card
-              key={index}
-              className={css.movie_grid_card}
-              style={{ width: 'auto' }}
-              onClick={() => handleSelectMovie(movie)}
-            >
-              <Card.Img
-                variant='top'
-                src={`https://image.tmdb.org/t/p/original/${movie.image}`}
-              />
-              <Card.Body>
-                <Card.Title>{movie.title}</Card.Title>
-              </Card.Body>
-            </Card>
-          ))}
+        {isLoading ? (
+          <Spinner animation='border' role='status' />
+        ) : (
+          <Fragment>
+            {slicedMovieList &&
+              slicedMovieList.length &&
+              slicedMovieList.map((movie, index) => (
+                <Card
+                  key={index}
+                  className={css.movie_grid_card}
+                  style={{ width: 'auto' }}
+                  onClick={() => handleSelectMovie(movie)}
+                >
+                  <Card.Img
+                    variant='top'
+                    src={`https://image.tmdb.org/t/p/original/${movie.image}`}
+                  />
+                  <Card.Body>
+                    <Card.Title>{movie.title}</Card.Title>
+                  </Card.Body>
+                </Card>
+              ))}
+          </Fragment>
+        )}
       </div>
       <Pagination size='lg' className={css.movie_list_nav}>
         {paginationNums.map((pageNum) => {
