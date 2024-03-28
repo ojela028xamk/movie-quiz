@@ -43,25 +43,25 @@
     }
   }
 
-  .movie_grid {
-    display: grid;
+  .movie_flex {
+    display: flex;
+    flex-direction: row;
     height: 500px;
     margin-top: 3em;
     padding: 1em;
-    grid-template-columns: repeat(4, 1fr);
-    justify-items: center;
     gap: 2em;
     border-left: 5px solid $white;
     border-right: 5px solid $white;
     border-radius: 2em;
 
-    .movie_grid_card {
+    .movie_flex_card {
+      flex: 1 1 0;
       background-color: $white;
       color: black;
       overflow: hidden;
     }
 
-    .movie_grid_card:hover {
+    .movie_flex_card:hover {
       cursor: pointer;
       background-color: $green;
       color: black;

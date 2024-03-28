@@ -1,3 +1,6 @@
+// Placeholder image by Bruno Massao
+// https://www.pexels.com/fi-fi/kuva/kamera-valokuvaus-teknologia-linssi-2873486/
+
 import { Button, Card, Form, InputGroup, Pagination } from 'react-bootstrap'
 import { Fragment, useState } from 'react'
 import { getSearchedMovies } from '../Services/movieDatabaseService'
@@ -8,6 +11,7 @@ import {
   MovieSearchResponse,
 } from '../globalTypes'
 import { isValidMovieData } from '../typeGuards'
+import placeholder from '../placeholder.jpg'
 import css from './MovieList.module.scss'
 
 type MovieListProps = {
@@ -125,7 +129,7 @@ const MovieList = ({
           Search
         </Button>
       </InputGroup>
-      <div className={css.movie_grid}>
+      <div className={css.movie_flex}>
         {isLoading ? (
           <div className={css.loader}></div>
         ) : (
@@ -135,12 +139,16 @@ const MovieList = ({
               slicedMovieList.map((movie, index) => (
                 <Card
                   key={index}
-                  className={css.movie_grid_card}
+                  className={css.movie_flex_card}
                   onClick={() => handleSelectMovie(movie)}
                 >
                   <Card.Img
                     variant='top'
-                    src={`https://image.tmdb.org/t/p/original/${movie.image}`}
+                    src={
+                      movie.image
+                        ? `https://image.tmdb.org/t/p/original/${movie.image}`
+                        : placeholder
+                    }
                   />
                   <Card.Body>
                     <Card.Title>{movie.title}</Card.Title>
