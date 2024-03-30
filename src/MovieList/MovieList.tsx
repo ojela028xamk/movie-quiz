@@ -28,6 +28,7 @@ const MovieList = ({
     [],
   )
   const [slicedMovieList, setSlicedMovieList] = useState<CurrentMovieList[]>([])
+  const [isEmptyMovieList, setIsEmptyMovieList] = useState<boolean>(false)
   const [paginationNums, setPaginationNums] = useState<number[]>([])
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -88,10 +89,16 @@ const MovieList = ({
             }),
           )
 
+          setIsEmptyMovieList(false)
           setPaginationNums(pageNumbers)
           setCurrentPage(1)
           setCurrentMovieList(newMovieList)
           setSlicedMovieList(newMovieList.slice(0, 4))
+        } else {
+          setIsEmptyMovieList(true)
+          setPaginationNums([])
+          setCurrentMovieList([])
+          setSlicedMovieList([])
         }
       })
       .catch((err) => {
@@ -134,8 +141,7 @@ const MovieList = ({
           <div className={css.loader}></div>
         ) : (
           <Fragment>
-            {slicedMovieList &&
-              slicedMovieList.length &&
+            {slicedMovieList && slicedMovieList.length ? (
               slicedMovieList.map((movie, index) => (
                 <Card
                   key={index}
@@ -154,7 +160,21 @@ const MovieList = ({
                     <Card.Title>{movie.title}</Card.Title>
                   </Card.Body>
                 </Card>
-              ))}
+              ))
+            ) : (
+              <div className={css.movie_flex_info}>
+                {!isEmptyMovieList ? (
+                  <span>
+                    1. Search a movie <i className='bi bi-search'></i>
+                    <br />
+                    2. Click a movie to create a quiz{' '}
+                    <i className='bi bi-film'></i>
+                  </span>
+                ) : (
+                  <span>No results found... Try another search.</span>
+                )}
+              </div>
+            )}
           </Fragment>
         )}
       </div>
