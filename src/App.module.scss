@@ -1,6 +1,9 @@
 @import './variables';
 
 .App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   color: $white;
   margin: auto;
   padding: 2em;
