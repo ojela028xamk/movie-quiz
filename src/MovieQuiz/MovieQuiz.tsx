@@ -54,11 +54,11 @@ const MovieQuiz = ({
       <div className={css.movie_quiz}>
         {!showResults && (
           <div className={css.movie_quiz_questions}>
-            <Button onClick={() => handleSiteView(true, false)}>
+            <Button variant='light' onClick={() => handleSiteView(true, false)}>
               <i className='bi bi-arrow-left'></i> Select another movie{' '}
             </Button>
-            <h2>Movie: {movieTitle}</h2>
-            <h3>{currentQuestion.question}</h3>
+            <h3>Movie: {movieTitle}</h3>
+            <h2>{currentQuestion.question}</h2>
             <div className={css.questions_grid}>
               {currentQuestion.answers.map((answer) => (
                 <div

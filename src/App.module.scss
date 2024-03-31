@@ -1,5 +1,7 @@
+@import './variables';
+
 .App {
-  color: white;
+  color: $white;
   margin: auto;
   padding: 2em;
   width: 1280px;
