@@ -156,7 +156,7 @@ const askActorPlaysCharacter = (
 
   const newQuestion: QuizQuestion = {
     question_id: nanoid(),
-    question: `Who plays the character '${randomActor.character}'`,
+    question: `Who plays the character '${randomActor.character}' ?`,
     answers: [
       {
         answer_id: nanoid(),

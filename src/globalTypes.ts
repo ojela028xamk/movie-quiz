@@ -108,6 +108,23 @@ export type MovieCrew = {
   job: string
 }
 
+export type MovieImagesResult = {
+  backdrops: MovieImageItem[]
+  id: number
+  logos: MovieImageItem[]
+  posters: MovieImageItem[]
+}
+
+export type MovieImageItem = {
+  aspect_ratio: number
+  height: number
+  iso_639_1: string
+  file_path: string
+  vote_average: number
+  vote_count: number
+  width: number
+}
+
 export type CurrentMovieList = {
   title: string
   image: string

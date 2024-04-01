@@ -1,12 +1,17 @@
 import {
   MovieCreditsResult,
   MovieDetailsResult,
+  MovieImagesResult,
   MovieResult,
   QuizAnswer,
   QuizQuestion,
 } from '../globalTypes'
 import { isValidMovieCreditsData, isValidMovieDetailsData } from '../typeGuards'
-import { getMovieCredits, getMovieDetails } from './movieDatabaseService'
+import {
+  getMovieCredits,
+  getMovieDetails,
+  getMovieImages,
+} from './movieDatabaseService'
 import {
   askActorPlaysCharacter,
   askCharacterIsActor,
@@ -75,13 +80,16 @@ const shuffleAnswersArray = (array: QuizAnswer[]): QuizAnswer[] => {
 const createNewQuiz = async (data: MovieResult): Promise<QuizQuestion[]> => {
   const getDetails = await getMovieDetails(String(data.id))
   const getCredits = await getMovieCredits(String(data.id))
+  const getImages = await getMovieImages(String(data.id))
   let detailsData: MovieDetailsResult | null = null
   let creditsData: MovieCreditsResult | null = null
+  let imagesData: MovieImagesResult | null = null
 
-  return Promise.all([getDetails, getCredits])
+  return Promise.all([getDetails, getCredits, getImages])
     .then((res) => {
       detailsData = res[0] as MovieDetailsResult
       creditsData = res[1] as MovieCreditsResult
+      imagesData = res[2] as MovieImagesResult
 
       if (!isValidMovieDetailsData(detailsData)) throw Error
       if (!isValidMovieCreditsData(creditsData)) throw Error
