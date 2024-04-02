@@ -131,6 +131,11 @@ export type CurrentMovieList = {
   data: MovieResult
 }
 
+export type QuizData = {
+  questions: QuizQuestion[]
+  images: MovieImageItem[]
+}
+
 export type QuizQuestion = {
   question_id: string
   question: string

@@ -1,9 +1,11 @@
 import {
   MovieCreditsResult,
   MovieDetailsResult,
+  MovieImageItem,
   MovieImagesResult,
   MovieResult,
   QuizAnswer,
+  QuizData,
   QuizQuestion,
 } from '../globalTypes'
 import { isValidMovieCreditsData, isValidMovieDetailsData } from '../typeGuards'
@@ -24,14 +26,16 @@ import {
 const hasEnoughData = (
   details: MovieDetailsResult,
   credits: MovieCreditsResult,
+  images: MovieImagesResult,
 ): boolean => {
   const hasProductionCompanies = details.production_companies.length
   const hasDirector = credits.crew.find(
     (member) => member.department === 'Directing',
   )
   const hasActors = credits.cast.length > 5
+  const hasImages = images.backdrops.length > 2
 
-  if (!hasProductionCompanies || !hasDirector || !hasActors) {
+  if (!hasProductionCompanies || !hasDirector || !hasActors || !hasImages) {
     return false
   } else {
     return true
@@ -77,13 +81,17 @@ const shuffleAnswersArray = (array: QuizAnswer[]): QuizAnswer[] => {
   return array
 }
 
-const createNewQuiz = async (data: MovieResult): Promise<QuizQuestion[]> => {
+const createNewQuiz = async (data: MovieResult): Promise<QuizData> => {
   const getDetails = await getMovieDetails(String(data.id))
   const getCredits = await getMovieCredits(String(data.id))
   const getImages = await getMovieImages(String(data.id))
   let detailsData: MovieDetailsResult | null = null
   let creditsData: MovieCreditsResult | null = null
   let imagesData: MovieImagesResult | null = null
+  let quizData: QuizData = {
+    questions: [],
+    images: [],
+  }
 
   return Promise.all([getDetails, getCredits, getImages])
     .then((res) => {
@@ -93,11 +101,13 @@ const createNewQuiz = async (data: MovieResult): Promise<QuizQuestion[]> => {
 
       if (!isValidMovieDetailsData(detailsData)) throw Error
       if (!isValidMovieCreditsData(creditsData)) throw Error
+      // TODO: imagesData typeguard
 
       if (
         detailsData &&
         creditsData &&
-        hasEnoughData(detailsData, creditsData)
+        imagesData &&
+        hasEnoughData(detailsData, creditsData, imagesData)
       ) {
         const randomIndexList: number[] = []
         const targetLength = 4
@@ -118,16 +128,30 @@ const createNewQuiz = async (data: MovieResult): Promise<QuizQuestion[]> => {
         const q7 = askCharacterIsActor(creditsData.cast, randomIndexList[2])
         const q8 = askCharacterIsActor(creditsData.cast, randomIndexList[3])
 
-        const quizQuestionsList = [q1, q2, q3, q4, q5, q6, q7, q8]
+        const quizQuestionsList = shuffleQuestionsArray([
+          q1,
+          q2,
+          q3,
+          q4,
+          q5,
+          q6,
+          q7,
+          q8,
+        ])
+        const quizImagesList = imagesData.backdrops.slice(0, 3)
+        quizData = {
+          questions: quizQuestionsList,
+          images: quizImagesList,
+        }
 
-        return shuffleQuestionsArray(quizQuestionsList)
+        return quizData
       } else {
-        return []
+        return quizData
       }
     })
     .catch((err) => {
       console.log(err)
-      return []
+      return quizData
     })
 }
 

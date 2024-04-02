@@ -1,19 +1,21 @@
 import { Button, Pagination } from 'react-bootstrap'
-import { useEffect, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import MovieQuizResults from './MovieQuizResults'
 import css from './MovieQuiz.module.scss'
-import { QuizQuestion } from '../globalTypes'
+import { MovieImageItem, QuizQuestion } from '../globalTypes'
 
 type MovieQuizProps = {
   handleSiteView: (showList: boolean, showQuiz: boolean) => void
   movieTitle: string
   quizQuestions: QuizQuestion[]
+  quizImages: MovieImageItem[]
 }
 
 const MovieQuiz = ({
   handleSiteView,
   movieTitle,
   quizQuestions,
+  quizImages,
 }: MovieQuizProps): JSX.Element => {
   const initSelectedAnswers = quizQuestions.map(() => '')
   const firstQuestion = quizQuestions[0]
@@ -59,6 +61,26 @@ const MovieQuiz = ({
             </Button>
             <h3>Movie: {movieTitle}</h3>
             <h2>{currentQuestion.question}</h2>
+            <Fragment>
+              <img
+                className={css.image1}
+                width={200}
+                key={quizImages[0].iso_639_1}
+                src={`https://image.tmdb.org/t/p/original/${quizImages[0].file_path}`}
+              />
+              <img
+                className={css.image2}
+                width={200}
+                key={quizImages[1].iso_639_1}
+                src={`https://image.tmdb.org/t/p/original/${quizImages[1].file_path}`}
+              />
+              <img
+                className={css.image3}
+                width={200}
+                key={quizImages[2].iso_639_1}
+                src={`https://image.tmdb.org/t/p/original/${quizImages[2].file_path}`}
+              />
+            </Fragment>
             <div className={css.questions_grid}>
               {currentQuestion.answers.map((answer) => (
                 <div

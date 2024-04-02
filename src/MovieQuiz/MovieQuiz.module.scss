@@ -5,6 +5,36 @@
   padding: 1em;
 
   .movie_quiz_questions {
+    position: relative;
+
+    .image1,
+    .image2,
+    .image3 {
+      border: 2px solid $white;
+      border-radius: 0.8em;
+      position: absolute;
+    }
+
+    .image1 {
+      left: 20px;
+      top: -20px;
+    }
+
+    .image2 {
+      left: -50px;
+      top: 50px;
+    }
+
+    .image3 {
+      right: -50px;
+      bottom: 30px;
+    }
+
+    h2 {
+      margin: auto;
+      width: 50%;
+    }
+
     h3 {
       margin: 0.8em;
       font-weight: 100;
