@@ -68,6 +68,7 @@ const MovieQuiz = ({
                   width={200}
                   key={index + 1}
                   src={`https://image.tmdb.org/t/p/original/${image.file_path}`}
+                  loading='lazy'
                 />
               ))}
             </Fragment>

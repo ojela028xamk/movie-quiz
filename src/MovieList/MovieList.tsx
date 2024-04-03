@@ -155,6 +155,7 @@ const MovieList = ({
                         ? `https://image.tmdb.org/t/p/original/${movie.image}`
                         : placeholder
                     }
+                    loading='lazy'
                   />
                   <Card.Body>
                     <Card.Title>{movie.title}</Card.Title>
