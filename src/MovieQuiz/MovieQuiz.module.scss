@@ -1,29 +1,92 @@
+@import '../variables';
+
+// https://css-loaders.com/classic/
+.loader {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: fit-content;
+  font-family: monospace;
+  font-size: 3em;
+  clip-path: inset(0 3ch 0 0);
+  animation: l4 1s steps(4) infinite;
+}
+
+.loader:before {
+  content: 'Creating a quiz...';
+}
+
+@keyframes l4 {
+  to {
+    clip-path: inset(0 -1ch 0 0);
+  }
+}
+
 .movie_quiz {
-  border: 2px solid white;
-  margin: 1em;
+  margin: 3em 1em;
   padding: 1em;
 
   .movie_quiz_questions {
+    position: relative;
+
+    .image1,
+    .image2,
+    .image3 {
+      border: 2px solid $white;
+      border-radius: $border-radius;
+      position: absolute;
+    }
+
+    .image1 {
+      left: 20px;
+      top: -20px;
+    }
+
+    .image2 {
+      left: -50px;
+      top: 50px;
+    }
+
+    .image3 {
+      right: -50px;
+      bottom: 30px;
+    }
+
+    h2 {
+      margin: auto;
+      width: 50%;
+    }
+
+    h3 {
+      margin: 0.8em;
+      font-weight: 100;
+    }
+
+    button {
+      @include button;
+    }
+
     .questions_grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      padding: 1em;
+      padding: 2.5em;
       gap: 1em;
 
       .question_item {
         padding: 1em;
-        border: 2px solid white;
-        border-radius: 1em;
+        border: 2px solid $white;
+        border-radius: $border-radius;
       }
 
       .active {
-        background-color: white;
+        background-color: $white;
         color: black;
       }
 
       .question_item:hover {
         cursor: pointer;
-        background-color: white;
+        background-color: $white;
         color: black;
       }
     }
@@ -32,6 +95,18 @@
   .pagination {
     margin: 1em;
     justify-content: center;
+
+    span {
+      background-color: $light-blue;
+      color: $white;
+      border-color: black;
+    }
+
+    a {
+      background-color: $white;
+      color: black;
+      border-color: black;
+    }
   }
 
   .movie_quiz_results {

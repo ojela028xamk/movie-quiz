@@ -60,4 +60,24 @@ const getMovieCredits = async (movieId: string): Promise<unknown> => {
   }
 }
 
-export { getSearchedMovies, getMovieDetails, getMovieCredits }
+const getMovieImages = async (movieId: string): Promise<unknown> => {
+  const options = {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  }
+
+  try {
+    const response = await fetch(
+      `https://api.themoviedb.org/3/movie/${movieId}/images`,
+      options,
+    )
+    return await response.json()
+  } catch (err) {
+    throw err
+  }
+}
+
+export { getSearchedMovies, getMovieDetails, getMovieCredits, getMovieImages }

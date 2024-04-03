@@ -6,6 +6,8 @@ import MovieQuizContainer from './MovieQuiz/MovieQuizContainer'
 import { MovieResult } from './globalTypes'
 import Footer from './HeaderFooter/Footer'
 
+// TODO: Check useless type castings
+
 const App = (): JSX.Element => {
   const [showMovieList, setShowMovieList] = useState<boolean>(true)
   const [showMovieQuiz, setShowMovieQuiz] = useState<boolean>(false)

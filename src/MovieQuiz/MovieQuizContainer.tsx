@@ -1,5 +1,5 @@
-import { Button, Spinner } from 'react-bootstrap'
-import { MovieResult, QuizQuestion } from '../globalTypes'
+import { Button } from 'react-bootstrap'
+import { MovieImageItem, MovieResult, QuizQuestion } from '../globalTypes'
 import MovieQuiz from './MovieQuiz'
 import { useEffectOnce } from 'react-use'
 import { useState } from 'react'
@@ -17,6 +17,7 @@ const MovieQuizContainer = ({
 }: MovieQuizContainerProps): JSX.Element | null => {
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [quizQuestions, setQuizQuestions] = useState<QuizQuestion[]>([])
+  const [quizImages, setQuizImages] = useState<MovieImageItem[]>([])
   const [message, setMessage] = useState<string>('')
 
   useEffectOnce(() => {
@@ -27,7 +28,8 @@ const MovieQuizContainer = ({
 
     createNewQuiz(selectedMovie)
       .then((res) => {
-        setQuizQuestions(res)
+        setQuizQuestions(res.questions)
+        setQuizImages(res.images)
       })
       .catch(() => {
         setQuizQuestions([])
@@ -39,7 +41,7 @@ const MovieQuizContainer = ({
 
   if (!selectedMovie) return <h3>{message}</h3>
 
-  if (isLoading) return <Spinner animation='border' role='status' />
+  if (isLoading) return <div className={css.loader}></div>
 
   if (!quizQuestions.length)
     return (
@@ -56,6 +58,7 @@ const MovieQuizContainer = ({
       handleSiteView={handleSiteView}
       movieTitle={selectedMovie.title}
       quizQuestions={quizQuestions}
+      quizImages={quizImages}
     />
   )
 }

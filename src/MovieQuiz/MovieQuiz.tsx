@@ -1,19 +1,21 @@
 import { Button, Pagination } from 'react-bootstrap'
-import { useEffect, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import MovieQuizResults from './MovieQuizResults'
 import css from './MovieQuiz.module.scss'
-import { QuizQuestion } from '../globalTypes'
+import { MovieImageItem, QuizQuestion } from '../globalTypes'
 
 type MovieQuizProps = {
   handleSiteView: (showList: boolean, showQuiz: boolean) => void
   movieTitle: string
   quizQuestions: QuizQuestion[]
+  quizImages: MovieImageItem[]
 }
 
 const MovieQuiz = ({
   handleSiteView,
   movieTitle,
   quizQuestions,
+  quizImages,
 }: MovieQuizProps): JSX.Element => {
   const initSelectedAnswers = quizQuestions.map(() => '')
   const firstQuestion = quizQuestions[0]
@@ -57,8 +59,19 @@ const MovieQuiz = ({
             <Button onClick={() => handleSiteView(true, false)}>
               <i className='bi bi-arrow-left'></i> Select another movie{' '}
             </Button>
-            <h2>Movie: {movieTitle}</h2>
-            <h3>{currentQuestion.question}</h3>
+            <h3>Movie: {movieTitle}</h3>
+            <h2>{currentQuestion.question}</h2>
+            <Fragment>
+              {quizImages.map((image, index) => (
+                <img
+                  className={css[`image${index + 1}`]}
+                  width={200}
+                  key={index + 1}
+                  src={`https://image.tmdb.org/t/p/original/${image.file_path}`}
+                  loading='lazy'
+                />
+              ))}
+            </Fragment>
             <div className={css.questions_grid}>
               {currentQuestion.answers.map((answer) => (
                 <div
