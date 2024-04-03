@@ -3,3 +3,24 @@ $dark-blue: #0d253f;
 $light-blue: #01b4e4;
 $green: #90cea1;
 $white: #e0d8de;
+
+// Global button style
+@mixin button {
+  background-color: $light-blue;
+  color: black;
+  border: none;
+  border-radius: 0.5em;
+  padding: 0.5em 1em;
+  margin: 0.5em;
+  cursor: pointer;
+  font-size: 1.1em;
+
+  &:hover {
+    background-color: $white;
+  }
+
+  &:active {
+    background-color: $white;
+    color: black;
+  }
+}

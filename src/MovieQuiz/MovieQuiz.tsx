@@ -56,7 +56,7 @@ const MovieQuiz = ({
       <div className={css.movie_quiz}>
         {!showResults && (
           <div className={css.movie_quiz_questions}>
-            <Button variant='light' onClick={() => handleSiteView(true, false)}>
+            <Button onClick={() => handleSiteView(true, false)}>
               <i className='bi bi-arrow-left'></i> Select another movie{' '}
             </Button>
             <h3>Movie: {movieTitle}</h3>

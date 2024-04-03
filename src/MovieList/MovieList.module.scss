@@ -36,13 +36,13 @@
     .search_button {
       font-size: 1.1em;
       background-color: $light-blue;
-      color: white;
+      color: $white;
       border: none;
     }
 
     .search_button:hover {
       background-color: black;
-      color: white;
+      color: $white;
       border: none;
     }
   }
@@ -87,7 +87,7 @@
 
     span {
       background-color: $light-blue;
-      color: white;
+      color: $white;
       border-color: black;
     }
 
