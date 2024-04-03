@@ -41,7 +41,7 @@ const MovieQuizContainer = ({
 
   if (!selectedMovie) return <h3>{message}</h3>
 
-  if (isLoading) return <Spinner animation='border' role='status' />
+  if (isLoading) return <div className={css.loader}></div>
 
   if (!quizQuestions.length)
     return (
