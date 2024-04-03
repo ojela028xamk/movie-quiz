@@ -5,14 +5,14 @@ $green: #90cea1;
 $white: #e0d8de;
 
 // General styles
-$border-radius: 0.7em;
+$border-radius: 0.8em;
 
 // Global button style
 @mixin button {
   background-color: $light-blue;
   color: black;
   border: none;
-  border-radius: $border-radius;
+  border-radius: 0.5em;
   padding: 0.5em 1em;
   margin: 0.5em;
   cursor: pointer;

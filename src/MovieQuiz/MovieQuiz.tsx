@@ -62,24 +62,14 @@ const MovieQuiz = ({
             <h3>Movie: {movieTitle}</h3>
             <h2>{currentQuestion.question}</h2>
             <Fragment>
-              <img
-                className={css.image1}
-                width={200}
-                key={1}
-                src={`https://image.tmdb.org/t/p/original/${quizImages[0].file_path}`}
-              />
-              <img
-                className={css.image2}
-                width={200}
-                key={2}
-                src={`https://image.tmdb.org/t/p/original/${quizImages[1].file_path}`}
-              />
-              <img
-                className={css.image3}
-                width={200}
-                key={3}
-                src={`https://image.tmdb.org/t/p/original/${quizImages[2].file_path}`}
-              />
+              {quizImages.map((image, index) => (
+                <img
+                  className={css[`image${index + 1}`]}
+                  width={200}
+                  key={index + 1}
+                  src={`https://image.tmdb.org/t/p/original/${image.file_path}`}
+                />
+              ))}
             </Fragment>
             <div className={css.questions_grid}>
               {currentQuestion.answers.map((answer) => (
