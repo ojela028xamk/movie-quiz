@@ -1,12 +1,9 @@
 import {
   MovieCreditsResult,
   MovieDetailsResult,
-  MovieImageItem,
   MovieImagesResult,
   MovieResult,
-  QuizAnswer,
   QuizData,
-  QuizQuestion,
 } from '../globalTypes'
 import { isValidMovieCreditsData, isValidMovieDetailsData } from '../typeGuards'
 import {
@@ -43,26 +40,7 @@ const hasEnoughData = (
 }
 
 // https://bost.ocks.org/mike/shuffle/
-const shuffleQuestionsArray = (array: QuizQuestion[]): QuizQuestion[] => {
-  let m = array.length,
-    t,
-    i
-
-  // While there remain elements to shuffle…
-  while (m) {
-    // Pick a remaining element…
-    i = Math.floor(Math.random() * m--)
-
-    // And swap it with the current element.
-    t = array[m]
-    array[m] = array[i]
-    array[i] = t
-  }
-
-  return array
-}
-
-const shuffleAnswersArray = (array: QuizAnswer[]): QuizAnswer[] => {
+const shuffleArray = <T>(array: T[]): T[] => {
   let m = array.length,
     t,
     i
@@ -128,16 +106,7 @@ const createNewQuiz = async (data: MovieResult): Promise<QuizData> => {
         const q7 = askCharacterIsActor(creditsData.cast, randomIndexList[2])
         const q8 = askCharacterIsActor(creditsData.cast, randomIndexList[3])
 
-        const quizQuestionsList = shuffleQuestionsArray([
-          q1,
-          q2,
-          q3,
-          q4,
-          q5,
-          q6,
-          q7,
-          q8,
-        ])
+        const quizQuestionsList = shuffleArray([q1, q2, q3, q4, q5, q6, q7, q8])
         const quizImagesList = imagesData.backdrops.slice(0, 3)
         quizData = {
           questions: quizQuestionsList,
@@ -155,4 +124,4 @@ const createNewQuiz = async (data: MovieResult): Promise<QuizData> => {
     })
 }
 
-export { createNewQuiz, shuffleQuestionsArray, shuffleAnswersArray }
+export { createNewQuiz, shuffleArray }

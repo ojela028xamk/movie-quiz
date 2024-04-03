@@ -11,7 +11,7 @@ import {
   getWrongMovieBudgets,
   getWrongMovieCompanies,
 } from './wrongAnswerService'
-import { shuffleAnswersArray } from './quizService'
+import { shuffleArray } from './quizService'
 
 const askReleaseYear = (date: string): QuizQuestion => {
   const correctDate = Number(date.substring(0, 4))
@@ -42,7 +42,7 @@ const askReleaseYear = (date: string): QuizQuestion => {
     })
   }
 
-  newQuestion.answers = shuffleAnswersArray(newQuestion.answers)
+  newQuestion.answers = shuffleArray(newQuestion.answers)
 
   return newQuestion
 }
@@ -83,7 +83,7 @@ const askDirector = (movieCrew: MovieCrew[]): QuizQuestion => {
     if (newQuestion.answers.length === 4) break
   }
 
-  newQuestion.answers = shuffleAnswersArray(newQuestion.answers)
+  newQuestion.answers = shuffleArray(newQuestion.answers)
 
   return newQuestion
 }
@@ -114,7 +114,7 @@ const askProductionCompany = (
     })
   })
 
-  newQuestion.answers = shuffleAnswersArray(newQuestion.answers)
+  newQuestion.answers = shuffleArray(newQuestion.answers)
 
   return newQuestion
 }
@@ -142,7 +142,7 @@ const askMovieBudget = (movieBudget: number): QuizQuestion => {
     })
   })
 
-  newQuestion.answers = shuffleAnswersArray(newQuestion.answers)
+  newQuestion.answers = shuffleArray(newQuestion.answers)
 
   return newQuestion
 }
@@ -174,7 +174,7 @@ const askActorPlaysCharacter = (
     })
   })
 
-  newQuestion.answers = shuffleAnswersArray(newQuestion.answers)
+  newQuestion.answers = shuffleArray(newQuestion.answers)
 
   return newQuestion
 }
@@ -206,7 +206,7 @@ const askCharacterIsActor = (
     })
   })
 
-  newQuestion.answers = shuffleAnswersArray(newQuestion.answers)
+  newQuestion.answers = shuffleArray(newQuestion.answers)
 
   return newQuestion
 }
