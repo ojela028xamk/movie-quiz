@@ -11,7 +11,7 @@
     .image2,
     .image3 {
       border: 2px solid $white;
-      border-radius: 0.8em;
+      border-radius: $border-radius;
       position: absolute;
     }
 
@@ -53,7 +53,7 @@
       .question_item {
         padding: 1em;
         border: 2px solid $white;
-        border-radius: 1em;
+        border-radius: $border-radius;
       }
 
       .active {
