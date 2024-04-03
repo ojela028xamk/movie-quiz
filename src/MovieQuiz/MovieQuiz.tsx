@@ -65,19 +65,19 @@ const MovieQuiz = ({
               <img
                 className={css.image1}
                 width={200}
-                key={quizImages[0].iso_639_1}
+                key={1}
                 src={`https://image.tmdb.org/t/p/original/${quizImages[0].file_path}`}
               />
               <img
                 className={css.image2}
                 width={200}
-                key={quizImages[1].iso_639_1}
+                key={2}
                 src={`https://image.tmdb.org/t/p/original/${quizImages[1].file_path}`}
               />
               <img
                 className={css.image3}
                 width={200}
-                key={quizImages[2].iso_639_1}
+                key={3}
                 src={`https://image.tmdb.org/t/p/original/${quizImages[2].file_path}`}
               />
             </Fragment>

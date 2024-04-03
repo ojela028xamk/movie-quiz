@@ -5,7 +5,11 @@ import {
   MovieResult,
   QuizData,
 } from '../globalTypes'
-import { isValidMovieCreditsData, isValidMovieDetailsData } from '../typeGuards'
+import {
+  isValidMovieCreditsData,
+  isValidMovieDetailsData,
+  isValidMovieImagesData,
+} from '../typeGuards'
 import {
   getMovieCredits,
   getMovieDetails,
@@ -79,7 +83,7 @@ const createNewQuiz = async (data: MovieResult): Promise<QuizData> => {
 
       if (!isValidMovieDetailsData(detailsData)) throw Error
       if (!isValidMovieCreditsData(creditsData)) throw Error
-      // TODO: imagesData typeguard
+      if (!isValidMovieImagesData(imagesData)) throw Error
 
       if (
         detailsData &&

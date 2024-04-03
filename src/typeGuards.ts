@@ -3,6 +3,8 @@ import {
   MovieCreditsResult,
   MovieCrew,
   MovieDetailsResult,
+  MovieImageItem,
+  MovieImagesResult,
   MovieProductionCompanies,
   MovieResult,
 } from './globalTypes'
@@ -118,4 +120,41 @@ const isValidMovieCreditsData = (
   return true
 }
 
-export { isValidMovieData, isValidMovieDetailsData, isValidMovieCreditsData }
+const isValidBackdropObject = (
+  imageObj: MovieImageItem,
+): imageObj is MovieImageItem => {
+  const hasFilePath = 'file_path' in imageObj
+
+  if (!hasFilePath) return false
+
+  return true
+}
+
+const isValidMovieImagesData = (
+  imagesData: MovieImagesResult,
+): imagesData is MovieImagesResult => {
+  if (!imagesData) return false
+
+  const hasBackdropsKey = 'backdrops' in imagesData
+
+  if (!hasBackdropsKey) return false
+
+  const backdropsIsArr = Array.isArray(imagesData.backdrops)
+
+  if (!backdropsIsArr) return false
+
+  const hasValidBackdropObjects = imagesData.backdrops.every(
+    isValidBackdropObject,
+  )
+
+  if (!hasValidBackdropObjects) return false
+
+  return true
+}
+
+export {
+  isValidMovieData,
+  isValidMovieDetailsData,
+  isValidMovieCreditsData,
+  isValidMovieImagesData,
+}
