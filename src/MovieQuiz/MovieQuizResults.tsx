@@ -1,7 +1,7 @@
 import { useMount } from 'react-use'
 import css from './MovieQuiz.module.scss'
 import { useState } from 'react'
-import { Button } from 'react-bootstrap'
+import { Button, Card } from 'react-bootstrap'
 import { QuizAnswer, QuizQuestion } from '../globalTypes'
 
 type MovieQuizResultsProps = {
@@ -52,21 +52,27 @@ const MovieQuizResults = ({
       <Button onClick={() => handleSiteView(true, false)}>
         <i className='bi bi-arrow-left'></i> Select another movie{' '}
       </Button>
-      {quizQuestions.map((question, questionIndex) => {
-        return (
-          <div key={question.question_id}>
-            <h3>{question.question}</h3>
-            {question.answers.map((answer) => (
-              <span
-                key={answer.answer_id}
-                className={isCorrectAnswer(answer, questionIndex)}
-              >
-                {answer.answer}
-              </span>
-            ))}
-          </div>
-        )
-      })}
+      <div className={css.quiz_results_grid}>
+        {quizQuestions.map((question, questionIndex) => {
+          return (
+            <Card key={question.question_id} className={css.card}>
+              <Card.Header className={css.card_header}>
+                {question.question}
+              </Card.Header>
+              <Card.Body className={css.card_body}>
+                {question.answers.map((answer) => (
+                  <span
+                    key={answer.answer_id}
+                    className={isCorrectAnswer(answer, questionIndex)}
+                  >
+                    {answer.answer}
+                  </span>
+                ))}
+              </Card.Body>
+            </Card>
+          )
+        })}
+      </div>
     </div>
   )
 }

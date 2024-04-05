@@ -100,8 +100,8 @@ const MovieQuiz = ({
                 )
               })}
             </Pagination>
-            <Button disabled={!isQuizDone} onClick={() => setShowResults(true)}>
-              {isQuizDone
+            <Button disabled={isQuizDone} onClick={() => setShowResults(true)}>
+              {!isQuizDone
                 ? 'Show results'
                 : 'Answer all questions to see results'}
             </Button>

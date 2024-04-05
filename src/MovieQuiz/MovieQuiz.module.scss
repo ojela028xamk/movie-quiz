@@ -111,22 +111,56 @@
 
   .movie_quiz_results {
     margin: auto;
-    width: 600px;
     span {
       display: block;
       margin: 0.5em;
     }
 
-    .correct_selected {
-      color: green;
-    }
+    .quiz_results_grid {
+      margin: 1em;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1em;
 
-    .correct {
-      color: greenyellow;
-    }
+      .card {
+        background-color: $white;
+        border: none;
 
-    .wrong {
-      color: red;
+        .card_header {
+          background-color: $green;
+          color: black;
+        }
+
+        .card_body {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+
+          span {
+            margin: 0.5em;
+            padding: 0.5em;
+            border: 2px solid $dark-blue;
+            border-radius: $border-radius;
+          }
+
+          .correct_selected {
+            border: none;
+            background-color: green;
+            color: $white;
+          }
+
+          .correct {
+            border: none;
+            background-color: greenyellow;
+            color: $white;
+          }
+
+          .wrong {
+            border: none;
+            background-color: red;
+            color: $white;
+          }
+        }
+      }
     }
   }
 }

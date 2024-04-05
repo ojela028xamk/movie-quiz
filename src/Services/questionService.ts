@@ -95,8 +95,7 @@ const askProductionCompany = (
 
   const newQuestion: QuizQuestion = {
     question_id: nanoid(),
-    question:
-      'Which one of these movie companies is part of the production of this movie?',
+    question: 'Which company is part of the production?',
     answers: [
       {
         answer_id: nanoid(),
