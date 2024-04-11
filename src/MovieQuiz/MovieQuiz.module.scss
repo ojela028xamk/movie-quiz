@@ -81,13 +81,13 @@
 
       .active {
         background-color: $white;
-        color: black;
+        color: $dark-blue;
       }
 
       .question_item:hover {
         cursor: pointer;
         background-color: $white;
-        color: black;
+        color: $dark-blue;
       }
     }
   }
@@ -99,34 +99,88 @@
     span {
       background-color: $light-blue;
       color: $white;
-      border-color: black;
+      border-color: $dark-blue;
     }
 
     a {
       background-color: $white;
-      color: black;
-      border-color: black;
+      color: $dark-blue;
+      border-color: $dark-blue;
     }
   }
 
   .movie_quiz_results {
     margin: auto;
-    width: 600px;
+
+    button {
+      @include button;
+    }
+
     span {
       display: block;
       margin: 0.5em;
     }
 
-    .correct_selected {
-      color: green;
-    }
+    .quiz_results_grid {
+      margin: 1em;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1em;
 
-    .correct {
-      color: greenyellow;
-    }
+      .card {
+        background-color: $white;
+        border: none;
 
-    .wrong {
-      color: red;
+        .card_header {
+          background-color: $white;
+          color: $dark-blue;
+          font-size: 1.2em;
+          font-weight: 400;
+        }
+
+        .card_body {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+
+          .card_body_answer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0.5em;
+            border: 2px solid $dark-blue;
+            border-radius: $border-radius;
+
+            span {
+              display: inline;
+              font-size: 1em;
+              margin-left: 0.5em;
+            }
+
+            i {
+              display: inline;
+              font-size: 1.5em;
+            }
+          }
+
+          .correct_selected {
+            border: 2px solid $result-green;
+            background-color: $result-green;
+            color: $white;
+          }
+
+          .correct {
+            border: 2px solid $result-green;
+            background-color: $result-green;
+            color: $white;
+          }
+
+          .wrong {
+            border: 2px solid $result-red;
+            background-color: $result-red;
+            color: $white;
+          }
+        }
+      }
     }
   }
 }

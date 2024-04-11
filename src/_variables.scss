@@ -3,6 +3,8 @@ $dark-blue: #0d253f;
 $light-blue: #01b4e4;
 $green: #90cea1;
 $white: #e0d8de;
+$result-green: #5ed033;
+$result-red: #f83d58;
 
 // General styles
 $border-radius: 0.8em;
@@ -10,7 +12,7 @@ $border-radius: 0.8em;
 // Global button style
 @mixin button {
   background-color: $light-blue;
-  color: black;
+  color: $dark-blue;
   border: none;
   border-radius: 0.5em;
   padding: 0.5em 1em;
@@ -24,6 +26,6 @@ $border-radius: 0.8em;
 
   &:active {
     background-color: $white;
-    color: black;
+    color: $dark-blue;
   }
 }

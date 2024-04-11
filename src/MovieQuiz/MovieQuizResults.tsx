@@ -1,7 +1,7 @@
 import { useMount } from 'react-use'
 import css from './MovieQuiz.module.scss'
 import { useState } from 'react'
-import { Button } from 'react-bootstrap'
+import { Button, Card } from 'react-bootstrap'
 import { QuizAnswer, QuizQuestion } from '../globalTypes'
 
 type MovieQuizResultsProps = {
@@ -32,6 +32,21 @@ const MovieQuizResults = ({
     return ''
   }
 
+  const getIcon = (answer: QuizAnswer, index: number): string => {
+    const correctAnswerSelected =
+      answer.answer_id === selectedAnswers[index] && answer.isCorrect
+    const correctAnswer =
+      answer.answer_id !== selectedAnswers[index] && answer.isCorrect
+    const wrongAnswer =
+      answer.answer_id === selectedAnswers[index] && !answer.isCorrect
+
+    if (correctAnswerSelected) return 'bi bi-check-circle'
+    if (correctAnswer) return ''
+    if (wrongAnswer) return 'bi bi-x-circle'
+
+    return ''
+  }
+
   useMount(() => {
     let count = 0
     quizQuestions.map((question, index) => {
@@ -45,28 +60,34 @@ const MovieQuizResults = ({
 
   return (
     <div className={css.movie_quiz_results}>
-      <h2>Final Results</h2>
-      <h4>
-        You got {correctAnswersCount} / {quizQuestions.length}{' '}
-      </h4>
+      <h2>
+        You got {correctAnswersCount} / {quizQuestions.length} answers correct!
+      </h2>
       <Button onClick={() => handleSiteView(true, false)}>
         <i className='bi bi-arrow-left'></i> Select another movie{' '}
       </Button>
-      {quizQuestions.map((question, questionIndex) => {
-        return (
-          <div key={question.question_id}>
-            <h3>{question.question}</h3>
-            {question.answers.map((answer) => (
-              <span
-                key={answer.answer_id}
-                className={isCorrectAnswer(answer, questionIndex)}
-              >
-                {answer.answer}
-              </span>
-            ))}
-          </div>
-        )
-      })}
+      <div className={css.quiz_results_grid}>
+        {quizQuestions.map((question, questionIndex) => {
+          return (
+            <Card key={question.question_id} className={css.card}>
+              <Card.Header className={css.card_header}>
+                {question.question}
+              </Card.Header>
+              <Card.Body className={css.card_body}>
+                {question.answers.map((answer) => (
+                  <div
+                    key={answer.answer_id}
+                    className={`${css.card_body_answer} ${isCorrectAnswer(answer, questionIndex)}`}
+                  >
+                    <i className={getIcon(answer, questionIndex)}></i>
+                    <span key={answer.answer_id}>{answer.answer}</span>
+                  </div>
+                ))}
+              </Card.Body>
+            </Card>
+          )
+        })}
+      </div>
     </div>
   )
 }
