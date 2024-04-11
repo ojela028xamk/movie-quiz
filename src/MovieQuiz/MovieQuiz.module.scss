@@ -163,19 +163,19 @@
           }
 
           .correct_selected {
-            border: none;
+            border: 2px solid $result-green;
             background-color: $result-green;
             color: $white;
           }
 
           .correct {
-            border: none;
+            border: 2px solid $result-green;
             background-color: $result-green;
             color: $white;
           }
 
           .wrong {
-            border: none;
+            border: 2px solid $result-red;
             background-color: $result-red;
             color: $white;
           }
