@@ -81,13 +81,13 @@
 
       .active {
         background-color: $white;
-        color: black;
+        color: $dark-blue;
       }
 
       .question_item:hover {
         cursor: pointer;
         background-color: $white;
-        color: black;
+        color: $dark-blue;
       }
     }
   }
@@ -99,18 +99,23 @@
     span {
       background-color: $light-blue;
       color: $white;
-      border-color: black;
+      border-color: $dark-blue;
     }
 
     a {
       background-color: $white;
-      color: black;
-      border-color: black;
+      color: $dark-blue;
+      border-color: $dark-blue;
     }
   }
 
   .movie_quiz_results {
     margin: auto;
+
+    button {
+      @include button;
+    }
+
     span {
       display: block;
       margin: 0.5em;

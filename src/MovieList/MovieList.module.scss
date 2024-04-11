@@ -41,7 +41,7 @@
     }
 
     .search_button:hover {
-      background-color: black;
+      background-color: $dark-blue;
       color: $white;
       border: none;
     }
@@ -61,14 +61,14 @@
     .movie_flex_card {
       flex: 1 1 0;
       background-color: $white;
-      color: black;
+      color: $dark-blue;
       overflow: hidden;
     }
 
     .movie_flex_card:hover {
       cursor: pointer;
       background-color: $green;
-      color: black;
+      color: $dark-blue;
     }
 
     .movie_flex_info {
@@ -88,13 +88,13 @@
     span {
       background-color: $light-blue;
       color: $white;
-      border-color: black;
+      border-color: $dark-blue;
     }
 
     a {
       background-color: $white;
-      color: black;
-      border-color: black;
+      color: $dark-blue;
+      border-color: $dark-blue;
     }
   }
 }

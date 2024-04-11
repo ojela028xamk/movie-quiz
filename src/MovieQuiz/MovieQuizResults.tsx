@@ -60,10 +60,9 @@ const MovieQuizResults = ({
 
   return (
     <div className={css.movie_quiz_results}>
-      <h2>Final Results</h2>
-      <h4>
-        You got {correctAnswersCount} / {quizQuestions.length}{' '}
-      </h4>
+      <h2>
+        You got {correctAnswersCount} / {quizQuestions.length} answers correct!
+      </h2>
       <Button onClick={() => handleSiteView(true, false)}>
         <i className='bi bi-arrow-left'></i> Select another movie{' '}
       </Button>
