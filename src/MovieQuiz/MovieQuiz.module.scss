@@ -127,36 +127,51 @@
         border: none;
 
         .card_header {
-          background-color: $green;
-          color: black;
+          background-color: $white;
+          color: $dark-blue;
+          font-size: 1.2em;
+          font-weight: 400;
         }
 
         .card_body {
           display: grid;
           grid-template-columns: 1fr 1fr;
 
-          span {
+          .card_body_answer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
             margin: 0.5em;
-            padding: 0.5em;
             border: 2px solid $dark-blue;
             border-radius: $border-radius;
+
+            span {
+              display: inline;
+              font-size: 1em;
+              margin-left: 0.5em;
+            }
+
+            i {
+              display: inline;
+              font-size: 1.5em;
+            }
           }
 
           .correct_selected {
             border: none;
-            background-color: green;
+            background-color: $result-green;
             color: $white;
           }
 
           .correct {
             border: none;
-            background-color: greenyellow;
+            background-color: $result-green;
             color: $white;
           }
 
           .wrong {
             border: none;
-            background-color: red;
+            background-color: $result-red;
             color: $white;
           }
         }

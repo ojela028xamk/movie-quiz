@@ -32,6 +32,21 @@ const MovieQuizResults = ({
     return ''
   }
 
+  const getIcon = (answer: QuizAnswer, index: number): string => {
+    const correctAnswerSelected =
+      answer.answer_id === selectedAnswers[index] && answer.isCorrect
+    const correctAnswer =
+      answer.answer_id !== selectedAnswers[index] && answer.isCorrect
+    const wrongAnswer =
+      answer.answer_id === selectedAnswers[index] && !answer.isCorrect
+
+    if (correctAnswerSelected) return 'bi bi-check-circle'
+    if (correctAnswer) return ''
+    if (wrongAnswer) return 'bi bi-x-circle'
+
+    return ''
+  }
+
   useMount(() => {
     let count = 0
     quizQuestions.map((question, index) => {
@@ -61,12 +76,13 @@ const MovieQuizResults = ({
               </Card.Header>
               <Card.Body className={css.card_body}>
                 {question.answers.map((answer) => (
-                  <span
+                  <div
                     key={answer.answer_id}
-                    className={isCorrectAnswer(answer, questionIndex)}
+                    className={`${css.card_body_answer} ${isCorrectAnswer(answer, questionIndex)}`}
                   >
-                    {answer.answer}
-                  </span>
+                    <i className={getIcon(answer, questionIndex)}></i>
+                    <span key={answer.answer_id}>{answer.answer}</span>
+                  </div>
                 ))}
               </Card.Body>
             </Card>
