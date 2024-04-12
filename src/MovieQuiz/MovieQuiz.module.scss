@@ -23,6 +23,20 @@
   }
 }
 
+.movie_quiz_no_data {
+  margin: 3em 1em;
+  padding: 1em;
+  text-align: center;
+
+  h2 {
+    margin: 0.5em;
+  }
+
+  button {
+    @include button;
+  }
+}
+
 .movie_quiz {
   margin: 3em 1em;
   padding: 1em;

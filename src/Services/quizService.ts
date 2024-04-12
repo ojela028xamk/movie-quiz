@@ -75,6 +75,7 @@ const createNewQuiz = async (data: MovieResult): Promise<QuizData> => {
     images: [],
   }
 
+  throw Error
   return Promise.all([getDetails, getCredits, getImages])
     .then((res) => {
       detailsData = res[0] as MovieDetailsResult
@@ -123,8 +124,7 @@ const createNewQuiz = async (data: MovieResult): Promise<QuizData> => {
       }
     })
     .catch((err) => {
-      console.log(err)
-      return quizData
+      return err
     })
 }
 
