@@ -32,6 +32,7 @@ const MovieList = ({
   const [paginationNums, setPaginationNums] = useState<number[]>([])
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [hasError, setHasError] = useState<boolean>(false)
 
   const handleSelectListPage = (pageNumber: number): void => {
     if (pageNumber === currentPage) return
@@ -60,6 +61,7 @@ const MovieList = ({
 
   const handleSearchMovies = (): void => {
     setIsLoading(true)
+    setHasError(false)
 
     // Endpoint gives max 20 results
     getSearchedMovies(movieName)
@@ -101,8 +103,8 @@ const MovieList = ({
           setSlicedMovieList([])
         }
       })
-      .catch((err) => {
-        console.log(err)
+      .catch(() => {
+        setHasError(true)
         setCurrentMovieList([])
       })
       .finally(() => {
@@ -164,15 +166,21 @@ const MovieList = ({
               ))
             ) : (
               <div className={css.movie_flex_info}>
-                {!isEmptyMovieList ? (
-                  <span>
-                    1. Search a movie <i className='bi bi-search'></i>
-                    <br />
-                    2. Click a movie to create a quiz{' '}
-                    <i className='bi bi-film'></i>
-                  </span>
+                {!hasError ? (
+                  <Fragment>
+                    {!isEmptyMovieList ? (
+                      <span>
+                        1. Search a movie <i className='bi bi-search'></i>
+                        <br />
+                        2. Click a movie to create a quiz{' '}
+                        <i className='bi bi-film'></i>
+                      </span>
+                    ) : (
+                      <span>No results found... Try another search.</span>
+                    )}
+                  </Fragment>
                 ) : (
-                  <span>No results found... Try another search.</span>
+                  <span>Error occured... try searching again.</span>
                 )}
               </div>
             )}
