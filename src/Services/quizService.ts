@@ -123,8 +123,7 @@ const createNewQuiz = async (data: MovieResult): Promise<QuizData> => {
       }
     })
     .catch((err) => {
-      console.log(err)
-      return quizData
+      return err
     })
 }
 
