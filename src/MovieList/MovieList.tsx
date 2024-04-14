@@ -39,24 +39,9 @@ const MovieList = ({
 
     setCurrentPage(pageNumber)
 
-    switch (pageNumber) {
-      case 1:
-        setSlicedMovieList(currentMovieList.slice(0, 4))
-        break
-      case 2:
-        setSlicedMovieList(currentMovieList.slice(4, 8))
-        break
-      case 3:
-        setSlicedMovieList(currentMovieList.slice(8, 12))
-        break
-      case 4:
-        setSlicedMovieList(currentMovieList.slice(12, 16))
-        break
-      case 5:
-      default:
-        setSlicedMovieList(currentMovieList.slice(16, 20))
-        break
-    }
+    const startIndex = (pageNumber - 1) * 4
+    const endIndex = startIndex + 4
+    setSlicedMovieList(currentMovieList.slice(startIndex, endIndex))
   }
 
   const handleSearchMovies = (): void => {
