@@ -30,13 +30,20 @@ const hasEnoughData = (
   images: MovieImagesResult,
 ): boolean => {
   const hasProductionCompanies = details.production_companies.length
+  const hasBudget = details.budget
   const hasDirector = credits.crew.find(
     (member) => member.department === 'Directing',
   )
   const hasActors = credits.cast.length > 5
   const hasImages = images.backdrops.length > 2
 
-  if (!hasProductionCompanies || !hasDirector || !hasActors || !hasImages) {
+  if (
+    !hasProductionCompanies ||
+    !hasBudget ||
+    !hasDirector ||
+    !hasActors ||
+    !hasImages
+  ) {
     return false
   } else {
     return true
