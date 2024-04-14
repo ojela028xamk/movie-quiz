@@ -23,7 +23,7 @@ const MovieList = ({
   handleSiteView,
   setSelectedMovie,
 }: MovieListProps): JSX.Element => {
-  const [movieName, setMovieName] = useState<string>('Kill Bill')
+  const [movieName, setMovieName] = useState<string>('')
   const [currentMovieList, setCurrentMovieList] = useState<CurrentMovieList[]>(
     [],
   )
@@ -115,13 +115,7 @@ const MovieList = ({
           value={movieName}
           onChange={(event) => setMovieName(event.currentTarget.value)}
         />
-        <Button
-          variant='dark'
-          className={css.search_button}
-          onClick={handleSearchMovies}
-        >
-          Search
-        </Button>
+        <Button onClick={handleSearchMovies}>Search</Button>
       </InputGroup>
       <div className={css.movie_flex}>
         {isLoading ? (
