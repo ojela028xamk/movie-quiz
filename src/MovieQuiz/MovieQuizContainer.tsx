@@ -3,7 +3,7 @@ import { MovieImageItem, MovieResult, QuizQuestion } from '../globalTypes'
 import MovieQuiz from './MovieQuiz'
 import { useEffectOnce } from 'react-use'
 import { useState } from 'react'
-import { createNewQuiz, shuffleArray } from '../Services/quizService'
+import { createNewQuiz } from '../Services/quizService'
 import css from './MovieQuiz.module.scss'
 
 type MovieQuizContainerProps = {
@@ -15,13 +15,18 @@ const MovieQuizContainer = ({
   handleSiteView,
   selectedMovie,
 }: MovieQuizContainerProps): JSX.Element | null => {
-  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const [quizQuestions, setQuizQuestions] = useState<QuizQuestion[]>([])
   const [quizImages, setQuizImages] = useState<MovieImageItem[]>([])
   const [hasError, setHasError] = useState<boolean>(false)
 
   useEffectOnce(() => {
-    if (!selectedMovie) return
+    setIsLoading(true)
+
+    if (!selectedMovie) {
+      setIsLoading(false)
+      return
+    }
 
     createNewQuiz(selectedMovie)
       .then((res) => {
@@ -65,7 +70,7 @@ const MovieQuizContainer = ({
     <MovieQuiz
       handleSiteView={handleSiteView}
       movieTitle={selectedMovie.title}
-      quizQuestions={shuffleArray(quizQuestions)}
+      quizQuestions={quizQuestions}
       quizImages={quizImages}
     />
   )

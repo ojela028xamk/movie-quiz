@@ -117,7 +117,7 @@ const createNewQuiz = async (data: MovieResult): Promise<QuizData> => {
         const q7 = askCharacterIsActor(creditsData.cast, randomIndexList[2])
         const q8 = askCharacterIsActor(creditsData.cast, randomIndexList[3])
 
-        const quizQuestionsList = [q1, q2, q3, q4, q5, q6, q7, q8]
+        const quizQuestionsList = shuffleArray([q1, q2, q3, q4, q5, q6, q7, q8])
         const quizImagesList = imagesData.backdrops.slice(0, 3)
         quizData = {
           questions: quizQuestionsList,
