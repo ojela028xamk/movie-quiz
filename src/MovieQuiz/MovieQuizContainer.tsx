@@ -3,7 +3,7 @@ import { MovieImageItem, MovieResult, QuizQuestion } from '../globalTypes'
 import MovieQuiz from './MovieQuiz'
 import { useEffectOnce } from 'react-use'
 import { useState } from 'react'
-import { createNewQuiz } from '../Services/quizService'
+import { createNewQuiz, shuffleArray } from '../Services/quizService'
 import css from './MovieQuiz.module.scss'
 
 type MovieQuizContainerProps = {
@@ -65,7 +65,7 @@ const MovieQuizContainer = ({
     <MovieQuiz
       handleSiteView={handleSiteView}
       movieTitle={selectedMovie.title}
-      quizQuestions={quizQuestions}
+      quizQuestions={shuffleArray(quizQuestions)}
       quizImages={quizImages}
     />
   )
