@@ -34,6 +34,16 @@
 
   button {
     @include button;
+
+    &:hover {
+      background-color: $white;
+      color: $dark-blue;
+    }
+
+    &:active {
+      background-color: $white !important;
+      color: $dark-blue !important;
+    }
   }
 }
 
@@ -179,19 +189,19 @@
           .correct_selected {
             border: 2px solid $result-green;
             background-color: $result-green;
-            color: $white;
+            color: $dark-blue;
           }
 
           .correct {
             border: 2px solid $result-green;
             background-color: $result-green;
-            color: $white;
+            color: $dark-blue;
           }
 
           .wrong {
             border: 2px solid $result-red;
             background-color: $result-red;
-            color: $white;
+            color: $dark-blue;
           }
         }
       }

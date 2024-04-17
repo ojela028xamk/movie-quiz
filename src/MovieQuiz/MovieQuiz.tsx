@@ -41,9 +41,17 @@ const MovieQuiz = ({
     if (answerId === currentAnswer) return
 
     const newAnswers = [...selectedAnswers]
+    const nextPage = currentPage + 1
     newAnswers[currentPage] = answerId
+
     setCurrentAnswer(answerId)
     setSelectedAnswers(newAnswers)
+
+    if (currentPage < 7) {
+      setCurrentQuestion(quizQuestions[nextPage])
+      setCurrentPage(nextPage)
+      setCurrentAnswer(selectedAnswers[nextPage])
+    }
   }
 
   useEffect(() => {

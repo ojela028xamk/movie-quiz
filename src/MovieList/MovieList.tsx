@@ -23,7 +23,7 @@ const MovieList = ({
   handleSiteView,
   setSelectedMovie,
 }: MovieListProps): JSX.Element => {
-  const [movieName, setMovieName] = useState<string>('Kill Bill')
+  const [movieName, setMovieName] = useState<string>('')
   const [currentMovieList, setCurrentMovieList] = useState<CurrentMovieList[]>(
     [],
   )
@@ -39,24 +39,9 @@ const MovieList = ({
 
     setCurrentPage(pageNumber)
 
-    switch (pageNumber) {
-      case 1:
-        setSlicedMovieList(currentMovieList.slice(0, 4))
-        break
-      case 2:
-        setSlicedMovieList(currentMovieList.slice(4, 8))
-        break
-      case 3:
-        setSlicedMovieList(currentMovieList.slice(8, 12))
-        break
-      case 4:
-        setSlicedMovieList(currentMovieList.slice(12, 16))
-        break
-      case 5:
-      default:
-        setSlicedMovieList(currentMovieList.slice(16, 20))
-        break
-    }
+    const startIndex = (pageNumber - 1) * 4
+    const endIndex = startIndex + 4
+    setSlicedMovieList(currentMovieList.slice(startIndex, endIndex))
   }
 
   const handleSearchMovies = (): void => {
@@ -130,13 +115,7 @@ const MovieList = ({
           value={movieName}
           onChange={(event) => setMovieName(event.currentTarget.value)}
         />
-        <Button
-          variant='dark'
-          className={css.search_button}
-          onClick={handleSearchMovies}
-        >
-          Search
-        </Button>
+        <Button onClick={handleSearchMovies}>Search</Button>
       </InputGroup>
       <div className={css.movie_flex}>
         {isLoading ? (
