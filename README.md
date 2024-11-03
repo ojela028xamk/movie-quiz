@@ -17,6 +17,6 @@ This website uses TMDB API https://developer.themoviedb.org/reference/intro/gett
 - Typescript
 - React
 - React Bootstrap
-- SASS
+- Sass
 - React-use
 
