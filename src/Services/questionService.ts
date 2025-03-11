@@ -28,12 +28,15 @@ const askReleaseYear = (date: string): QuizQuestion => {
     ],
   }
 
-  for (let index = 0; index < 3; index++) {
-    const min = correctDate - 5
-    const max = correctDate + 5
+  let wrongYears = []
+  for (let i = correctDate - 5; i <= correctDate + 5; i++) {
+    if (i === correctDate) continue
+    wrongYears.push(i)
+  }
+  wrongYears = shuffleArray(wrongYears)
 
-    let wrongDate = Math.floor(Math.random() * (min - max) + max)
-    if (wrongDate >= correctDate) wrongDate++
+  for (let index = 0; index < 3; index++) {
+    const wrongDate = wrongYears[index]
 
     newQuestion.answers.push({
       answer_id: nanoid(),
