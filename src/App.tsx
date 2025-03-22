@@ -19,13 +19,13 @@ const App = (): JSX.Element => {
   return (
     <div className={css.App}>
       <Header />
-      {/* {showMovieList && (
+      {showMovieList && (
         <MovieList
           handleSiteView={handleSiteView}
           setSelectedMovie={setSelectedMovie}
         />
       )}
-      {showMovieQuiz && (
+      {/*showMovieQuiz && (
         <MovieQuizContainer
           handleSiteView={handleSiteView}
           selectedMovie={selectedMovie}
