@@ -149,6 +149,10 @@
       grid-template-columns: 1fr 1fr;
       gap: 1em;
 
+      @media (max-width: $tablet) {
+        grid-template-columns: 1fr;
+      }
+
       .card {
         background-color: $white;
         border: none;
@@ -163,6 +167,10 @@
         .card_body {
           display: grid;
           grid-template-columns: 1fr 1fr;
+
+          @media (max-width: $tablet) {
+            grid-template-columns: 1fr;
+          }
 
           .card_body_answer {
             display: flex;
