@@ -25,12 +25,12 @@ const App = (): JSX.Element => {
           setSelectedMovie={setSelectedMovie}
         />
       )}
-      {/*showMovieQuiz && (
+      {showMovieQuiz && (
         <MovieQuizContainer
           handleSiteView={handleSiteView}
           selectedMovie={selectedMovie}
         />
-      )*/}
+      )}
       <Footer />
     </div>
   )
