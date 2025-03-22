@@ -70,7 +70,7 @@ const MovieQuiz = ({
             <h3>Movie: {movieTitle}</h3>
             <h2>{currentQuestion.question}</h2>
             <Fragment>
-              {/*quizImages.map((image, index) => (
+              {quizImages.map((image, index) => (
                 <img
                   className={css[`image${index + 1}`]}
                   width={200}
@@ -78,7 +78,7 @@ const MovieQuiz = ({
                   src={`https://image.tmdb.org/t/p/original/${image.file_path}`}
                   loading='lazy'
                 />
-              ))*/}
+              ))}
             </Fragment>
             <div className={css.questions_grid}>
               {currentQuestion.answers.map((answer) => (

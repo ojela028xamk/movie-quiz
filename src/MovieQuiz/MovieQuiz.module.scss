@@ -57,6 +57,10 @@
       border: 2px solid $white;
       border-radius: $border-radius;
       position: absolute;
+
+      @media (max-width: $laptop-large) {
+        display: none;
+      }
     }
 
     .image1 {
@@ -75,7 +79,8 @@
     }
 
     h3 {
-      margin: 0.8em;
+      max-width: 600px;
+      margin: 0.8em auto;
       font-weight: 100;
     }
 
