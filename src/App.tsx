@@ -19,7 +19,7 @@ const App = (): JSX.Element => {
   return (
     <div className={css.App}>
       <Header />
-      {showMovieList && (
+      {/* {showMovieList && (
         <MovieList
           handleSiteView={handleSiteView}
           setSelectedMovie={setSelectedMovie}
@@ -30,7 +30,7 @@ const App = (): JSX.Element => {
           handleSiteView={handleSiteView}
           selectedMovie={selectedMovie}
         />
-      )}
+      )*/}
       <Footer />
     </div>
   )

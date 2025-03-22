@@ -1,17 +1,18 @@
 .header,
 .footer {
   h1 {
-    font-size: 4em;
+    font-size: clamp(2.4rem, 10vw, 4rem);
     margin: 0;
   }
 
   span {
-    font-size: 1.5em;
+    font-size: 1.5rem;
   }
 
   img {
-    width: 300px;
-    vertical-align: top;
+    margin-top: 0.5em;
+    max-width: 250px;
+    vertical-align: bottom;
   }
 }
 
