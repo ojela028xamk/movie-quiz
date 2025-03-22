@@ -8,7 +8,7 @@
   transform: translate(-50%, -50%);
   width: fit-content;
   font-family: monospace;
-  font-size: 3em;
+  font-size: clamp(1rem, 5vw, 3rem);
   clip-path: inset(0 3ch 0 0);
   animation: l4 1s steps(4) infinite;
 }
@@ -48,9 +48,6 @@
 }
 
 .movie_quiz {
-  margin: 3em 1em;
-  padding: 1em;
-
   .movie_quiz_questions {
     position: relative;
 
@@ -60,6 +57,10 @@
       border: 2px solid $white;
       border-radius: $border-radius;
       position: absolute;
+
+      @media (max-width: $laptop-large) {
+        display: none;
+      }
     }
 
     .image1 {
@@ -77,13 +78,9 @@
       bottom: 30px;
     }
 
-    h2 {
-      margin: auto;
-      width: 50%;
-    }
-
     h3 {
-      margin: 0.8em;
+      max-width: 600px;
+      margin: 0.8em auto;
       font-weight: 100;
     }
 
@@ -92,10 +89,16 @@
     }
 
     .questions_grid {
+      margin: auto;
+      max-width: $laptop;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      padding: 2.5em;
-      gap: 1em;
+      padding: 2em 0;
+      gap: 0.8em;
+
+      @media (max-width: $mobile-large) {
+        grid-template-columns: 1fr;
+      }
 
       .question_item {
         padding: 1em;
@@ -117,7 +120,7 @@
   }
 
   .pagination {
-    margin: 1em;
+    flex-wrap: wrap;
     justify-content: center;
 
     span {
@@ -151,6 +154,10 @@
       grid-template-columns: 1fr 1fr;
       gap: 1em;
 
+      @media (max-width: $tablet) {
+        grid-template-columns: 1fr;
+      }
+
       .card {
         background-color: $white;
         border: none;
@@ -158,13 +165,17 @@
         .card_header {
           background-color: $white;
           color: $dark-blue;
-          font-size: 1.2em;
+          font-size: 1.2rem;
           font-weight: 400;
         }
 
         .card_body {
           display: grid;
           grid-template-columns: 1fr 1fr;
+
+          @media (max-width: $tablet) {
+            grid-template-columns: 1fr;
+          }
 
           .card_body_answer {
             display: flex;
@@ -176,13 +187,13 @@
 
             span {
               display: inline;
-              font-size: 1em;
+              font-size: 1rem;
               margin-left: 0.5em;
             }
 
             i {
               display: inline;
-              font-size: 1.5em;
+              font-size: 1.5rem;
             }
           }
 
