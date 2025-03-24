@@ -102,6 +102,10 @@ const MovieList = ({
     handleSiteView(false, true)
   }
 
+  const truncate = (name: string): string => {
+    return name.length > 40 ? name.slice(0, 40 - 1) + '...' : name
+  }
+
   useKeyPressEvent('Enter', handleSearchMovies)
 
   return (
@@ -139,7 +143,7 @@ const MovieList = ({
                     loading='lazy'
                   />
                   <Card.Body>
-                    <Card.Title>{movie.title}</Card.Title>
+                    <Card.Title>{truncate(movie.title)}</Card.Title>
                   </Card.Body>
                 </Card>
               ))
