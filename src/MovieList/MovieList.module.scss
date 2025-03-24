@@ -51,7 +51,6 @@
 
   .movie_flex {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     min-height: 400px;
     margin-top: 3em;
     padding: 1em;

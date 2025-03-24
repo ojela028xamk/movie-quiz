@@ -121,7 +121,15 @@ const MovieList = ({
         />
         <Button onClick={handleSearchMovies}>Search</Button>
       </InputGroup>
-      <div className={css.movie_flex}>
+      <div
+        className={css.movie_flex}
+        style={{
+          gridTemplateColumns:
+            paginationNums.length === currentPage
+              ? 'repeat(auto-fill, minmax(200px, 1fr))'
+              : 'repeat(auto-fit, minmax(200px, 1fr))',
+        }}
+      >
         {isLoading ? (
           <div className={css.loader}></div>
         ) : (
