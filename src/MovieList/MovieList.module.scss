@@ -52,7 +52,7 @@
   .movie_flex {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    min-height: 500px;
+    min-height: 400px;
     margin-top: 3em;
     padding: 1em;
     gap: 1em;
@@ -61,7 +61,6 @@
     border-radius: 2em;
 
     .movie_flex_card {
-      flex: 1 1 0;
       background-color: $white;
       color: $dark-blue;
       overflow: hidden;
